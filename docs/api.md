@@ -1,52 +1,52 @@
 <!-- TOC -->
 
 - [1. API Documentation](#1-api-documentation)
-    - [1.1. Example API Error Format](#11-example-api-error-format)
-    - [1.2. GET /](#12-get-)
-    - [1.3. GET /api/boards](#13-get-apiboards)
-        - [1.3.1. Expected parameters](#131-expected-parameters)
-        - [1.3.2. Example Response](#132-example-response)
-    - [1.4. POST /api/boards](#14-post-apiboards)
-        - [1.4.1. Expected Payload](#141-expected-payload)
-        - [1.4.2. Successful Response](#142-successful-response)
-            - [1.4.2.1. Example Response](#1421-example-response)
-        - [1.4.3. Error Response](#143-error-response)
-    - [1.5. GET /api/boards/:id](#15-get-apiboardsid)
-        - [1.5.1. Expected Payload](#151-expected-payload)
-        - [1.5.2. Successful Response](#152-successful-response)
-            - [1.5.2.1. Example Response](#1521-example-response)
-        - [1.5.3. Error Response](#153-error-response)
-    - [1.6. POST /api/lists](#16-post-apilists)
-        - [1.6.1. Expected Payload](#161-expected-payload)
-        - [1.6.2. Successful Response](#162-successful-response)
-            - [1.6.2.1. Example Response](#1621-example-response)
-        - [1.6.3. Error Response](#163-error-response)
-    - [1.7. PUT/PATCH /api/lists/:id](#17-putpatch-apilistsid)
-        - [1.7.1. Expected Payload](#171-expected-payload)
-        - [1.7.2. Successful Response](#172-successful-response)
-            - [1.7.2.1. Example Response](#1721-example-response)
-        - [1.7.3. Error Response](#173-error-response)
-    - [1.8. POST /api/cards](#18-post-apicards)
-        - [1.8.1. Expected Payload](#181-expected-payload)
-        - [1.8.2. Successful Response](#182-successful-response)
-            - [1.8.2.1. Example Response](#1821-example-response)
-        - [1.8.3. Error Response](#183-error-response)
-    - [1.9. GET /api/cards/:id](#19-get-apicardsid)
-        - [1.9.1. Expected Payload](#191-expected-payload)
-        - [1.9.2. Successful Response](#192-successful-response)
-            - [1.9.2.1. Example Response](#1921-example-response)
-        - [1.9.3. Error Response](#193-error-response)
-    - [1.10. PUT/PATCH /api/cards/:id](#110-putpatch-apicardsid)
-        - [1.10.1. Expected Payload](#1101-expected-payload)
-            - [1.10.1.1. Example Payload](#11011-example-payload)
-        - [1.10.2. Successful Response](#1102-successful-response)
-            - [1.10.2.1. Example Response](#11021-example-response)
-        - [1.10.3. Error Response](#1103-error-response)
-    - [1.11. POST /api/comments](#111-post-apicomments)
-        - [1.11.1. Expected Payload](#1111-expected-payload)
-        - [1.11.2. Successful Response](#1112-successful-response)
-            - [1.11.2.1. Example Response](#11121-example-response)
-        - [1.11.3. Error Response](#1113-error-response)
+  - [1.1. Example API Error Format](#11-example-api-error-format)
+  - [1.2. GET /](#12-get-)
+  - [1.3. GET /api/boards](#13-get-apiboards)
+    - [1.3.1. Expected parameters](#131-expected-parameters)
+    - [1.3.2. Example Response](#132-example-response)
+  - [1.4. POST /api/boards](#14-post-apiboards)
+    - [1.4.1. Expected Payload](#141-expected-payload)
+    - [1.4.2. Successful Response](#142-successful-response)
+      - [1.4.2.1. Example Response](#1421-example-response)
+    - [1.4.3. Error Response](#143-error-response)
+  - [1.5. GET /api/boards/:id](#15-get-apiboardsid)
+    - [1.5.1. Expected Payload](#151-expected-payload)
+    - [1.5.2. Successful Response](#152-successful-response)
+      - [1.5.2.1. Example Response](#1521-example-response)
+    - [1.5.3. Error Response](#153-error-response)
+  - [1.6. POST /api/lists](#16-post-apilists)
+    - [1.6.1. Expected Payload](#161-expected-payload)
+    - [1.6.2. Successful Response](#162-successful-response)
+      - [1.6.2.1. Example Response](#1621-example-response)
+    - [1.6.3. Error Response](#163-error-response)
+  - [1.7. PUT/PATCH /api/lists/:id](#17-putpatch-apilistsid)
+    - [1.7.1. Expected Payload](#171-expected-payload)
+    - [1.7.2. Successful Response](#172-successful-response)
+      - [1.7.2.1. Example Response](#1721-example-response)
+    - [1.7.3. Error Response](#173-error-response)
+  - [1.8. POST /api/cards](#18-post-apicards)
+    - [1.8.1. Expected Payload](#181-expected-payload)
+    - [1.8.2. Successful Response](#182-successful-response)
+      - [1.8.2.1. Example Response](#1821-example-response)
+    - [1.8.3. Error Response](#183-error-response)
+  - [1.9. GET /api/cards/:id](#19-get-apicardsid)
+    - [1.9.1. Expected Payload](#191-expected-payload)
+    - [1.9.2. Successful Response](#192-successful-response)
+      - [1.9.2.1. Example Response](#1921-example-response)
+    - [1.9.3. Error Response](#193-error-response)
+  - [1.10. PUT/PATCH /api/cards/:id](#110-putpatch-apicardsid)
+    - [1.10.1. Expected Payload](#1101-expected-payload)
+      - [1.10.1.1. Example Payload](#11011-example-payload)
+    - [1.10.2. Successful Response](#1102-successful-response)
+      - [1.10.2.1. Example Response](#11021-example-response)
+    - [1.10.3. Error Response](#1103-error-response)
+  - [1.11. POST /api/comments](#111-post-apicomments)
+    - [1.11.1. Expected Payload](#1111-expected-payload)
+    - [1.11.2. Successful Response](#1112-successful-response)
+      - [1.11.2.1. Example Response](#11121-example-response)
+    - [1.11.3. Error Response](#1113-error-response)
 
 <!-- /TOC -->
 
@@ -167,10 +167,7 @@ The response status code is 200.
           "_id": 7,
           "title": "1",
           "dueDate": null,
-          "labels": [
-            "red",
-            "purple"
-          ],
+          "labels": ["red", "purple"],
           "description": "Selectors",
           "listId": 3,
           "boardId": 1,
@@ -411,7 +408,7 @@ The updated card will be returned in JSON format. The returned object also inclu
   "updatedAt": "2020-10-08T18:15:25.017Z",
   "boardId": 1,
   "comments": [],
-   commentsCount": 0
+  "commentsCount": 0,
   "actions": [
     {
       "_id": 50,
