@@ -10,6 +10,15 @@ const getBoards = (req, res, next) => {
   });
 };
 
+const getBoard = (req, res, next) => {
+  Board
+    .findOne({ _id: req.params.id })
+    .populate('lists')
+    .then(data => {
+      res.json(data)
+    });
+}
+
 const createBoard = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
@@ -29,3 +38,4 @@ const createBoard = (req, res, next) => {
 
 exports.getBoards = getBoards;
 exports.createBoard = createBoard;
+exports.getBoard = getBoard;
