@@ -296,7 +296,7 @@ The new card is returned in JSON format with a 201 response status code.
   "completed": false,
   "boardId": 1,
   "comments": [],
-  "actions": []
+  "actions": [],
   "commentsCount": 0
 }
 ```

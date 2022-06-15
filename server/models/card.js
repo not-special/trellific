@@ -11,13 +11,13 @@ const CardSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "List"
     },
-    boardtId: {
+    boardId: {
       type: Schema.Types.ObjectId,
       ref: "Board"
     },
     dueDate: {
       type: Date,
-      required: false
+      default: null
     },
     labels: [
       {
@@ -26,7 +26,7 @@ const CardSchema = new Schema(
     ],
     description: {
       type: String,
-      required: false
+      default: ""
     },
     commentsCount: {
       type: Number,
@@ -37,6 +37,14 @@ const CardSchema = new Schema(
       type: Number,
       required: true,
       default: 65535
+    },
+    archived: {
+      type: Boolean,
+      default: false
+    },
+    completed: {
+      type: Boolean,
+      default: false
     }
   }
   , { timestamps: true }

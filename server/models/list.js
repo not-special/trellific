@@ -12,6 +12,10 @@ const ListSchema = new Schema(
       required: true,
       default: 65535
     },
+    boardId: {
+      type: Schema.Types.ObjectId,
+      ref: "Board"
+    },
     cards: [
       {
         type: Schema.Types.ObjectId,
