@@ -7,15 +7,17 @@ const ListSchema = new Schema(
       type: String,
       required: [true, 'The List title is required']
     },
-    board: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Board"
-    },
     position: {
       type: Number,
       required: true,
       default: 65535
     },
+    cards: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Card"
+      }
+    ]
   }
   , { timestamps: true }
 );

@@ -8,11 +8,11 @@ const CardSchema = new Schema(
       required: [true, 'The List title is required']
     },
     listId: {
-      type: ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "List"
     },
     boardtId: {
-      type: ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Board"
     },
     dueDate: {
