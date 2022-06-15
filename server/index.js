@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const routes = require('./routes/api');
 const HttpError = require("./models/httpError");
+const cors = require("cors")
 require('dotenv').config();
 
 const app = express();
@@ -15,6 +16,8 @@ mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: tr
   .catch(err => console.log(err));
 
 mongoose.Promise = global.Promise;
+
+app.use(cors());
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
