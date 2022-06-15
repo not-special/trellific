@@ -5,7 +5,7 @@ const CardSchema = new Schema(
   {
     title: {
       type: String,
-      required: [true, 'The List title is required']
+      required: [true, 'The Card title is required']
     },
     listId: {
       type: Schema.Types.ObjectId,
