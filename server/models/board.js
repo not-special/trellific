@@ -9,11 +9,11 @@ const BoardSchema = new Schema(
       required: [true, 'The Board title is required']
     },
     lists: [{
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "List"
     }]
-  }
-  , { timestamps: true }
+  }, 
+  { timestamps: true }
 );
 
 const Board = mongoose.model('Board', BoardSchema);
