@@ -5,10 +5,12 @@ const Card = require("../models/card");
 
 const createCard = async (req, res, next) => {
   // TODO: Add validation and error checking  
+  const docList = await List.findById(req.body.listId);
+
   const docCard = await Card.create({
-    // TODO: Add boardId (need GET)
     title: req.body.card.title,
-    listId: req.body.listId
+    listId: req.body.listId,
+    boardId: docList.boardId,
   })
   await List.findByIdAndUpdate(
     req.body.listId,
@@ -18,6 +20,19 @@ const createCard = async (req, res, next) => {
   const { __v, ...response } = docCard._doc 
   res.status(201)
   res.json(response)
+};
+
+const getCard = async (req, res, next) => {
+  // TODO: add validation and error checking
+  const docCard = await Card
+    .findById(req.params.id)
+    .populate({path: "comments"})
+    .populate({path: "actions"});
+  
+    const { __v, ...response } = docCard._doc 
+  res.status(200); 
+  res.json(response);
 }
 
 exports.createCard = createCard;
+exports.getCard = getCard;

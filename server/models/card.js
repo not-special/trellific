@@ -45,7 +45,17 @@ const CardSchema = new Schema(
     completed: {
       type: Boolean,
       default: false
-    }
+    },
+    comments: [
+      {
+        type: String // TODO: update type to reference commends type?
+      }
+    ],
+    actions: [
+      {
+        type: String // // TODO: update type to reference commends type?
+      }
+    ],
   }
   , { timestamps: true }
 );
