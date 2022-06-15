@@ -11,7 +11,8 @@ const getBoards = async (req, res, next) => {
 const getBoard = async (req, res, next) => {
   const docBoard = await Board
     .findOne({ _id: req.params.id }, "_id title createdAt updatedAt")
-    .populate("lists", "-__v")
+    .populate({path: "lists", populate: {path: "cards"}})
+    //TODO remove __v
   
   res.status(200)
   res.json(docBoard)

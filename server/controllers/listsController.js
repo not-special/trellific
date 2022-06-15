@@ -11,7 +11,10 @@ const createList = async (req, res, next) => {
   })
   await Board.findByIdAndUpdate(
     req.body.boardId,
+    // TODO use addToSet syntax
     { $push: { lists: docList._id } },
+    // TODO not needed? remove
+    // TODO add to middleware (note: would need to add the list to the req)
     { new: true, useFindAndModify: false } 
   )
   const { __v, cards, ...response } = docList._doc
