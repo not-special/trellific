@@ -23,8 +23,6 @@ const listSlice = createSlice({
       return action.payload.lists
     }),
     builder.addCase(createList.fulfilled, (state, action) => {
-      console.log("action: ", action)
-      console.log("state: ", state)
       state.push(action.payload);
     })
   },

@@ -23,7 +23,7 @@ const NewListForm = ({ boardId }) => {
   }
 
   const handleTitleSubmit = () => {
-    dispatch(createList({title, boardId}))
+    dispatch(createList({title, boardId, callback: handleCloseForm}))
   }
   
   const selectedClass = showForm ? "new-list selected" : "new-list";
