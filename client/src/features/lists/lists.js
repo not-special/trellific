@@ -14,6 +14,15 @@ export const createList = createAsyncThunk("lists/createList", async (args) => {
   }
 );
 
+export const editList = createAsyncThunk("lists/editList", async (args) => {
+  const {listId, title, position, callback } = args;
+  const data = await apiClient.editList({listId, title, position});
+  if (callback) {
+    callback();
+  }
+  return data;
+})
+
 const listSlice = createSlice({
   name: "lists",
   initialState,
@@ -21,10 +30,14 @@ const listSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchBoard.fulfilled, (state, action) => {
       return action.payload.lists
-    }),
+    });
     builder.addCase(createList.fulfilled, (state, action) => {
       state.push(action.payload);
-    })
+    });
+    builder.addCase(editList.fulfilled, (state, action) => {
+      const filteredState = state.filter(list => list._id !== action.payload._id);
+      return filteredState.concat(action.payload);
+    });
   },
 });
 
