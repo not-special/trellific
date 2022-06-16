@@ -38,6 +38,14 @@ const apiClient = {
     } catch (e) {
       logError(e);
     }
+  },
+  createList: async ({boardId, title}) => {
+    try {
+      const { data } = await axios.post(`${routes.CREATE_LIST_URL}`, { "boardId": boardId, "list": {"title": title }});
+      return data;
+    } catch (e) {
+      logError(e);
+    }
   }
 };
 

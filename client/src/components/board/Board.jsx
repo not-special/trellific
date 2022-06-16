@@ -23,7 +23,7 @@ const Board = () => {
       <>
         <Header title={board.title}/>
         <main>
-          <ExistingLists />
+          <ExistingLists boardId={board._id}/>
         </main>
       </>
     )
