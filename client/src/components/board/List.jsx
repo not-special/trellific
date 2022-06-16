@@ -3,14 +3,6 @@ import { useDispatch } from "react-redux";
 import ExistingCards from "./ExistingCards";
 import { editList } from "../../features/lists/lists";
 
-/*
-### 1.1.1. List titles
-The React component should swap the list title `<p>` tag for an `<input>` tag when it is clicked on. 
-Pressing enter during editing the title or blurring the input should submit the change and swap the `<p>` back in.
-
-NOTE: It is important to have the `<p>` and `<input>` wrapped in a `<div>` so that the styles will work properly.
-*/
-
 const List = ({ list }) => {
   const dispatch = useDispatch();
 
@@ -35,6 +27,7 @@ const List = ({ list }) => {
   };
 
   const handleTitleChange = (e) => {
+    // TODO: Handle enter
     setTitle(e.target.value);
   };
 
