@@ -4,15 +4,12 @@ import apiClient from "../../lib/ApiClient";
 
 const initialState = [];
 
-export const createList = createAsyncThunk("lists/createList", async (newList) => {
-    const data = await apiClient.createList(newList);
-    console.log("before callback")
-    // console.log("callback: ", callback)
-    // if (callback) {
-    //   callback();
-    // }
-    console.log("after callback")
-    console.log("data: ", data)
+export const createList = createAsyncThunk("lists/createList", async (args) => {
+    const {title, boardId, callback} = args;
+    const data = await apiClient.createList({title, boardId});
+    if (callback) {
+      callback();
+    }
     return data;
   }
 );
