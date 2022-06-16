@@ -1,32 +1,42 @@
-import React from "react";
-import { useState } from "react";
+import React, {useState} from "react";
+import { useDispatch } from "react-redux";
+import { createList } from "../../features/lists/lists";
 
 
-const NewListForm = () => {
-  // FROM THE DOCS:
-  // When the create a list button tile is clicked, it should add the `selected` 
-  // class to the `#new-list.new-list` element. This will display the form. 
-  // When either the 'Save' or 'X' buttons are clicked, the `selected` class should be removed.
+const NewListForm = ({ boardId }) => {
+  const dispatch = useDispatch();
 
   const [ showForm, setShowForm ] = useState(false);
-
-  const handleNewListClick = () => {
-    toggleForm();
-  }
+  const [ title, setTitle ] = useState("");
 
   const toggleForm = () => {
     setShowForm(!showForm);
+  }
+
+  const handleCloseForm = () => {
+    toggleForm();
+    setTitle("");
+  }
+
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value)
+  }
+
+  const handleTitleSubmit = () => {
+    // 1) Call ApiService...maybe not?
+    // 2) Update the store
+    dispatch(createList({title, boardId}))
   }
   
   const selectedClass = showForm ? "new-list selected" : "new-list";
 
   return (
-    <div id="new-list" className={selectedClass} onClick={handleNewListClick}>
-      <span>Add a list...</span>
-      <input type="text" placeholder="Add a list..." />
+    <div id="new-list" className={selectedClass}>
+      <span onClick={toggleForm}>Add a list...</span>
+      <input type="text" placeholder="Add a list..." value={title} onChange={handleTitleChange} />
       <div>
-        <input type="submit" className="button" value="Save"/>
-        <i className="x-icon icon"></i>
+        <input type="submit" className="button" value="Save" onClick={handleTitleSubmit}/>
+        <i className="x-icon icon" onClick={handleCloseForm}></i>
       </div>
     </div>
   )

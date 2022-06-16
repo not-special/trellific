@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import List from "./List"
 import NewListForm from "./NewListForm";
 
-const ExistingLists = () => {
+const ExistingLists = ({ boardId }) => {
   const lists = useSelector((state) => state.lists);
 
   return (
@@ -11,7 +11,7 @@ const ExistingLists = () => {
       <div id="existing-lists" className="existing-lists">
       { lists.map(list => <List key={list._id} list={list} />) }
       </div>
-      <NewListForm />
+      <NewListForm boardId={boardId}/>
     </div>
   )
 }
