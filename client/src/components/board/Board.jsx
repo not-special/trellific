@@ -7,22 +7,27 @@ import { fetchBoard } from "../../features/boards/boards";
 const Board = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  // const board = useSelector((state) => state.Boards.filter(board => board._id === id));
+  let boardFound = false;
   const board = useSelector((state) => {
-    console.log("STATE:", state.boards);
+    boardFound = state.boards.find(b => b._id === id );
+    return boardFound;
   })
 
   useEffect(() => {
-    console.log('Board path: ', id)
-    console.log('Board: ', board);
     dispatch(fetchBoard(id));
   }, [dispatch]);
 
-  return (
-    <div>
-      <p>Hey!!</p>
-    </div>
-  )
+  if (boardFound) {
+    return (
+      <div>
+        <p>{board.title}</p>
+      </div>
+    )
+  } else {
+    return (
+      <div>Loading...</div>
+    )
+  }
 }
 
 export default Board
