@@ -9,6 +9,7 @@ const Board = () => {
   const dispatch = useDispatch();
   let boardFound = false;
   const board = useSelector((state) => {
+    console.log("state: ", state)
     boardFound = state.boards.find(b => b._id === id );
     return boardFound;
   })
