@@ -1,4 +1,5 @@
 import React from "react"
+import ExistingCards from "./ExistingCards";
 
 const List = ({ list }) => {
   return (
@@ -14,18 +15,7 @@ const List = ({ list }) => {
             <a className="button">Add</a><i className="x-icon icon"></i>
             <div className="add-options"><span>...</span></div>
           </div>
-          <div id="cards-container" data-id="list-1-cards">
-            <div className="card-background">
-              <div className="card ">
-                <i className="edit-toggle edit-icon sm-icon"></i>
-                <div className="cover-image"></div>
-                <div className="card-info">
-                  <p>TODO: Extract cards!</p>
-                </div>
-                <div className="card-icons"></div>
-              </div>
-            </div>
-          </div>
+          <ExistingCards listId={list._id}/>
           <div className="add-dropdown add-bottom">
             <div className="card">
               <div className="card-info"></div>
