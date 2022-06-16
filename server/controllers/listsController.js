@@ -20,6 +20,27 @@ const createList = async (req, res, next) => {
   const { __v, cards, ...response } = docList._doc
   res.status(201)
   res.json(response)
+};
+
+const editList = async (req, res, next) => {
+  let updateObj = {};
+
+  for (let [key, value] of Object.entries(req.body)) {
+    if(value !== undefined){
+        updateObj[key] = value;
+    }
+  };
+  
+  const docList = await List.findByIdAndUpdate(
+    req.params.id,
+    { $set: updateObj },
+    { new: true, select: "_id title position boardId createdAt updatedAt" }
+  )
+  
+  const { ...response } = docList._doc;
+  res.status(200);
+  res.json(response);
 }
 
 exports.createList = createList;
+exports.editList = editList;
