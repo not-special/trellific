@@ -1,15 +1,15 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
-// import * as actions from "../../actions/BoardActions";
 import { useParams } from "react-router-dom";
 import { fetchBoard } from "../../features/boards/boards";
+import Header from "./Header";
+import ExistingLists from "./ExistingLists"
 
 const Board = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   let boardFound = false;
   const board = useSelector((state) => {
-    console.log("state: ", state)
     boardFound = state.boards.find(b => b._id === id );
     return boardFound;
   })
@@ -20,9 +20,12 @@ const Board = () => {
 
   if (boardFound) {
     return (
-      <div>
-        <p>{board.title}</p>
-      </div>
+      <>
+        <Header title={board.title}/>
+        <main>
+          <ExistingLists />
+        </main>
+      </>
     )
   } else {
     return (
@@ -31,4 +34,4 @@ const Board = () => {
   }
 }
 
-export default Board
+export default Board;
