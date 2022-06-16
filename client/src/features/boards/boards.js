@@ -36,13 +36,8 @@ const boardSlice = createSlice({
       state.push(action.payload);
     }),
     builder.addCase(fetchBoard.fulfilled, (state, action) => {
-      return state.map(item => {
-        if (item._id === action.payload._id) {
-          return action.payload;
-        } else {
-          return item;
-        }
-       });
+      const filteredState = state.filter(board => board._id !== action.payload._id)
+      return filteredState.concat(action.payload)
     })
 
   },
