@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux";
 import ExistingCards from "./ExistingCards";
+import { editList } from "../../features/lists/lists";
 
 /*
 ### 1.1.1. List titles
@@ -14,7 +15,7 @@ const List = ({ list }) => {
   const dispatch = useDispatch();
 
   const [ showForm, setShowForm ] = useState(false);
-  const [ title, setTitle ] = useState("value...");
+  const [ title, setTitle ] = useState(list.title);
 
   const listTitleElement = () => {
     if (showForm) {
@@ -29,9 +30,8 @@ const List = ({ list }) => {
     }
   };
 
-  const submitNewTitle = (e) => {
-    console.log("BLURRING...")
-    console.log(e)
+  const submitNewTitle = () => {
+    dispatch(editList({ listId: list._id, title, callback: toggleShowForm }));
   };
 
   const handleTitleChange = (e) => {

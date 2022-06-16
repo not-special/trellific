@@ -46,7 +46,23 @@ const apiClient = {
     } catch (e) {
       logError(e);
     }
-  }
+  },
+  editList: async (args) => { 
+    const reqBody = {};
+
+    for (let [key, value] of Object.entries(args)) {
+      if (value !== undefined && key !== 'listId') {
+        reqBody[key] = value;
+      }
+    }
+
+    try {
+      const { data } = await axios.put(`${routes.EDIT_LIST_URL}/${args["listId"]}`, reqBody );
+      return data;
+    } catch (e) {
+      logError(e)
+    }
+  } 
 };
 
 export default apiClient;
