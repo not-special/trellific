@@ -23,8 +23,6 @@ const NewListForm = ({ boardId }) => {
   }
 
   const handleTitleSubmit = () => {
-    // 1) Call ApiService...maybe not?
-    // 2) Update the store
     dispatch(createList({title, boardId}))
   }
   

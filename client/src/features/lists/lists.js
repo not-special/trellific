@@ -4,11 +4,15 @@ import apiClient from "../../lib/ApiClient";
 
 const initialState = [];
 
-export const createList = createAsyncThunk("lists/createList", async (newList, callback) => {
+export const createList = createAsyncThunk("lists/createList", async (newList) => {
     const data = await apiClient.createList(newList);
-    if (callback) {
-      callback();
-    }
+    console.log("before callback")
+    // console.log("callback: ", callback)
+    // if (callback) {
+    //   callback();
+    // }
+    console.log("after callback")
+    console.log("data: ", data)
     return data;
   }
 );
@@ -22,7 +26,8 @@ const listSlice = createSlice({
       return action.payload.lists
     }),
     builder.addCase(createList.fulfilled, (state, action) => {
-      console.log("listSlice createList.fulfilled action.payload: ", action.payload)
+      console.log("action: ", action)
+      console.log("state: ", state)
       state.push(action.payload);
     })
   },
