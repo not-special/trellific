@@ -15,6 +15,7 @@ const List = ({ list }) => {
         className="list-title" 
         value={title} 
         onChange={handleTitleChange}
+        onKeyUp={submitNewTitle}
         onBlur={submitNewTitle}
         ></input>
     } else {
@@ -22,12 +23,13 @@ const List = ({ list }) => {
     }
   };
 
-  const submitNewTitle = () => {
-    dispatch(editList({ listId: list._id, title, callback: toggleShowForm }));
+  const submitNewTitle = (e) => {
+    if (e.type !== "keyup" || e.key === "Enter") {
+      dispatch(editList({ listId: list._id, title, callback: toggleShowForm }));
+    }
   };
 
   const handleTitleChange = (e) => {
-    // TODO: Handle enter
     setTitle(e.target.value);
   };
 
