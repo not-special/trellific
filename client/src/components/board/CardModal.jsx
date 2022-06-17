@@ -1,14 +1,25 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { activateCardId } from "../../features/cards/activeCardId";
 
-const CardModal = ({ activeCard, handleCloseModal }) => {
-  const handleClickModal = (e) => {
-    e.stopPropagation();
+
+const CardModal = () => {
+  const activeCard = useSelector((state) => state.cards.find(card => card._id === state.activeCardId));
+  const dispatch = useDispatch();
+
+  const handleCloseModal = () => {    
+    dispatch(activateCardId({ cardId: "" }));  
+  }
+  
+  if (!activeCard) {
+    return <div id="modal-container" className="modal-container"></div>;  
   }
 
   return (
-    <>
-    <div className="screen"></div>
-      <div id="modal" onClick={handleClickModal}>
+    <div id="modal-container" className="modal-container" onClick={handleCloseModal}>
+      <div className="screen"></div>
+      <div id="modal" onClick={e => e.stopPropagation()}>
         <i className="x-icon icon close-modal" onClick={handleCloseModal}></i>
         <header>
           <i className="card-icon icon .close-modal"></i>
@@ -234,8 +245,8 @@ const CardModal = ({ activeCard, handleCloseModal }) => {
           </ul>
         </aside>
       </div>
-    </>
-  )
+    </div>
+  );
 };
 
 export default CardModal;
