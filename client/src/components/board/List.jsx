@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import ExistingCards from "./ExistingCards";
 import { editList } from "../../features/lists/lists";
 
-const List = ({ list }) => {
+const List = ({ list, activeAddCardList, setActiveAddCardList }) => {
   const dispatch = useDispatch();
 
   const [ showForm, setShowForm ] = useState(false);
@@ -36,9 +36,20 @@ const List = ({ list }) => {
   const toggleShowForm = () => {
     setShowForm(!showForm);
   };
-  
+
+  const isActiveList = () => {
+    return list._id === activeAddCardList
+  }
+
+  const toggleShowCardForm = () => {
+    isActiveList() ? setActiveAddCardList(null) : setActiveAddCardList(list._id);
+  }
+
+  const listWrapperClass = isActiveList() ? "list-wrapper add-dropdown-active" : "list-wrapper"
+  const addDropDownClass = isActiveList() ? "add-dropdown add-bottom active-card" : "add-dropdown add-bottom"
+
   return (
-    <div className="list-wrapper">
+    <div className={listWrapperClass}>
       <div className="list-background">
         <div className="list">
           <a className="more-icon sm-icon" href=""></a>
@@ -51,16 +62,17 @@ const List = ({ list }) => {
             <div className="add-options"><span>...</span></div>
           </div>
           <ExistingCards listId={list._id}/>
-          <div className="add-dropdown add-bottom">
+          <div className={addDropDownClass}>
             <div className="card">
               <div className="card-info"></div>
               <textarea name="add-card"></textarea>
               <div className="members"></div>
             </div>
-            <a className="button">Add</a><i className="x-icon icon"></i>
+            <a className="button">Add</a>
+            <i className="x-icon icon" onClick={toggleShowCardForm}></i>
             <div className="add-options"><span>...</span></div>
           </div>
-          <div className="add-card-toggle" data-position="bottom">Add a card...</div>
+          <div className="add-card-toggle" data-position="bottom" onClick={toggleShowCardForm}>Add a card...</div>
         </div>
       </div>
     </div>
