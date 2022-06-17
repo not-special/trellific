@@ -62,7 +62,15 @@ const apiClient = {
     } catch (e) {
       logError(e)
     }
-  } 
+  },
+  createCard: async ({listId, title}) => {
+    try {
+      const { data } = await axios.post(`${routes.CREATE_CARD_URL}`, { "listId": listId, "card": {"title": title }});
+      return data;
+    } catch (e) {
+      logError(e);
+    }
+  }
 };
 
 export default apiClient;
