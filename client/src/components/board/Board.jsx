@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchBoard } from "../../features/boards/boards";
 import Header from "./Header";
-import CardModal from "./CardModal";
+import CardModalContainer from "./CardModalContainer";
 import ExistingLists from "./ExistingLists"
 
 const Board = () => {
@@ -27,7 +27,7 @@ const Board = () => {
         <main>
           <ExistingLists boardId={board._id}/>
         </main>
-        <CardModal />
+        <CardModalContainer />
       </>
     )
   } else {
