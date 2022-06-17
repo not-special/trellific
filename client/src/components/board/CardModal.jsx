@@ -1,11 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { activateCardId } from "../../features/cards/activeCardId";
 
 const CardModal = () => {
-  // const activeCardId = useSelector((state) => state.activeCardId);
   const activeCard = useSelector((state) => state.cards.find(card => card._id === state.activeCardId));
-  console.log(activeCard); // ???
-  
+  const dispatch = useDispatch();
+
+  const handleCloseModal = () => {
+    dispatch(activateCardId({ cardId: "" }));  
+  }
+
   if (!activeCard) {
     return <div id="modal-container" className=""></div>;  
   }
@@ -14,12 +19,11 @@ const CardModal = () => {
     <div id="modal-container">
       <div className="screen"></div>
       <div id="modal">
-        <i className="x-icon icon close-modal"></i>
+        <i className="x-icon icon close-modal" onClick={handleCloseModal}></i>
         <header>
           <i className="card-icon icon .close-modal"></i>
           <textarea className="list-title" style={{ height: "45px" }}>
-            Cards do many cool things. Click on this card to open it and learn
-            more...
+            {activeCard.title}
           </textarea>
           <p>
             in list <a className="link">Stuff to try (this is a list)</a>
