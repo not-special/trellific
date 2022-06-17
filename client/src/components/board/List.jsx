@@ -2,12 +2,22 @@ import React, { useState } from "react"
 import { useDispatch } from "react-redux";
 import ExistingCards from "./ExistingCards";
 import { editList } from "../../features/lists/lists";
+import { createCard } from "../../features/cards/cards";
 
 const List = ({ list, activeAddCardList, setActiveAddCardList }) => {
   const dispatch = useDispatch();
 
   const [ showForm, setShowForm ] = useState(false);
   const [ title, setTitle ] = useState(list.title);
+  const [ newCardTitle, setNewCardTitle ] = useState("");
+
+  const handleNewCardTitleChange = (e) => {
+    setNewCardTitle(e.target.value);
+  };
+
+  const handleSubmitNewCardTitle = () => {
+    dispatch(createCard({ listId: list._id, title: newCardTitle, callback: toggleShowCardForm }));
+  }
 
   const listTitleElement = () => {
     if (showForm) {
@@ -15,15 +25,15 @@ const List = ({ list, activeAddCardList, setActiveAddCardList }) => {
         className="list-title" 
         value={title} 
         onChange={handleTitleChange}
-        onKeyUp={submitNewTitle}
-        onBlur={submitNewTitle}
+        onKeyUp={handleSubmitNewTitle}
+        onBlur={handleSubmitNewTitle}
         ></input>
     } else {
       return <p onClick={toggleShowForm} className="list-title">{list.title}</p>
     }
   };
 
-  const submitNewTitle = (e) => {
+  const handleSubmitNewTitle = (e) => {
     if (e.type !== "keyup" || e.key === "Enter") {
       dispatch(editList({ listId: list._id, title, callback: toggleShowForm }));
     }
@@ -38,7 +48,7 @@ const List = ({ list, activeAddCardList, setActiveAddCardList }) => {
   };
 
   const isActiveList = () => {
-    return list._id === activeAddCardList
+    return list._id === activeAddCardList;
   }
 
   const toggleShowCardForm = () => {
@@ -65,10 +75,10 @@ const List = ({ list, activeAddCardList, setActiveAddCardList }) => {
           <div className={addDropDownClass}>
             <div className="card">
               <div className="card-info"></div>
-              <textarea name="add-card"></textarea>
+              <textarea name="add-card" placeholder="Add card title..." value={newCardTitle} onChange={handleNewCardTitleChange}></textarea>
               <div className="members"></div>
             </div>
-            <a className="button">Add</a>
+            <a className="button" onClick={handleSubmitNewCardTitle}>Add</a>
             <i className="x-icon icon" onClick={toggleShowCardForm}></i>
             <div className="add-options"><span>...</span></div>
           </div>
