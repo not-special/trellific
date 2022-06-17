@@ -1,8 +1,9 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchBoard } from "../../features/boards/boards";
 import Header from "./Header";
+import CardModal from "./CardModal";
 import ExistingLists from "./ExistingLists"
 
 const Board = () => {
@@ -12,7 +13,8 @@ const Board = () => {
   const board = useSelector((state) => {
     boardFound = state.boards.find(b => b._id === id );
     return boardFound;
-  })
+  });
+  
 
   useEffect(() => {
     dispatch(fetchBoard(id));
@@ -25,6 +27,7 @@ const Board = () => {
         <main>
           <ExistingLists boardId={board._id}/>
         </main>
+        <CardModal />
       </>
     )
   } else {
