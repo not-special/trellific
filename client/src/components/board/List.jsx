@@ -17,6 +17,7 @@ const List = ({ list, activeAddCardList, setActiveAddCardList }) => {
 
   const handleSubmitNewCardTitle = () => {
     dispatch(createCard({ listId: list._id, title: newCardTitle, callback: toggleShowCardForm }));
+    setNewCardTitle("");
   }
 
   const listTitleElement = () => {
@@ -53,6 +54,7 @@ const List = ({ list, activeAddCardList, setActiveAddCardList }) => {
 
   const toggleShowCardForm = () => {
     isActiveList() ? setActiveAddCardList(null) : setActiveAddCardList(list._id);
+    setNewCardTitle("");
   }
 
   const listWrapperClass = isActiveList() ? "list-wrapper add-dropdown-active" : "list-wrapper"
