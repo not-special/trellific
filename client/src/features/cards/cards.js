@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchBoard } from "../boards/boards"; 
 import apiClient from "../../lib/ApiClient";
+import { activateCardId } from "./activeCardId";
 
 const initialState = [];
 
@@ -27,7 +28,14 @@ const cardSlice = createSlice({
     });
     builder.addCase(createCard.fulfilled, (state, action) => {
       state.push(action.payload);
-    })
+    });
+    builder.addCase(activateCardId.fulfilled, (state, action) => {
+      if (action.payload) {
+        let filteredState = state.filter(card => card._id !== action.payload._id);
+        return filteredState.concat(action.payload);
+      }
+      return state;
+    });
   },
 });
 
