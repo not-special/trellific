@@ -1,20 +1,38 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { activateCardId } from "../../features/cards/activeCardId";
+// import { activateCardId } from "../../features/cards/activeCardId";
+import { fetchCard } from "../../features/cards/cards";
+import { useEffect } from "react";
 
 
 const CardModal = () => {
-  const activeCard = useSelector((state) => state.cards.find(card => card._id === state.activeCardId));
-  const dispatch = useDispatch();
+  // const activeCard = useSelector((state) => state.cards.find(card => card._id === state.activeCardId));
+  // const dispatch = useDispatch();
+
+  // const navigate = useNavigate();
 
   const handleCloseModal = () => {    
-    dispatch(activateCardId({ cardId: "" }));  
+    // dispatch(activateCardId({ cardId: "" }));  
+    // navigate(`/boards/${activeCard.boardId}`);
+    console.log('handleCloseModal')  
   }
   
-  if (!activeCard) {
-    return <div id="modal-container" className="modal-container"></div>;  
-  }
+  // if (!activeCard) {
+  //   return <div id="modal-container" className="modal-container"></div>;  
+  // }
+
+  const cardId = useParams().id;
+  const dispatch = useDispatch();
+  
+  const activeCard = useSelector((state) => {
+    return state.cards.find(c => c._id === cardId);
+  });
+
+  useEffect(() => {
+    dispatch(fetchCard(cardId));
+  }, [dispatch, cardId]);
 
   return (
     <div id="modal-container" className="modal-container" onClick={handleCloseModal}>

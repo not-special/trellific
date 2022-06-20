@@ -1438,7 +1438,10 @@ p.list-title {
   margin: 0 8px 7px 8px;
   border-radius: 3px;
 }
-a:-webkit-any-link {
+// a:-webkit-any-link { // webkit rule did not apply in firefox
+//   text-decoration: none;
+// }
+a {
   text-decoration: none;
 }
 .card {
