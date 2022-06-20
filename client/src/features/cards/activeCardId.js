@@ -1,10 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import apiClient from "../../lib/ApiClient";
 
-const initialState = "";
+const initialState = null;
 
 export const activateCardId = createAsyncThunk("cards/activateCard", async (args) => {
   const { cardId } = args;
-  return cardId;
+
+  if (cardId) {
+    const data = await apiClient.getCard({ cardId });
+    return data;
+  }
+  return null;
 });
 
 const activeCardIdSlice = createSlice({
@@ -13,7 +19,10 @@ const activeCardIdSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(activateCardId.fulfilled, (state, action) => {
-      return action.payload;
+      if (action.payload) {
+        return action.payload._id;
+      }
+      return null;
     })
   }
 });
