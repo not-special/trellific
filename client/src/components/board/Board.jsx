@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchBoard } from "../../features/boards/boards";
+import { fetchCard } from "../../features/cards/cards";
 import Header from "./Header";
 // import CardModal from "./CardModal";
 import ExistingLists from "./ExistingLists"
@@ -12,7 +13,13 @@ params id refers to card... GET Request returns 200 with null payload
 */
 
 const Board = () => {
-  const { id } = useParams(); 
+  let { id } = useParams();
+  const card = useSelector((state) => {
+    return state.cards.find(c => c._id === id)
+  })
+
+  if (card) { id = card.boardId }
+
   const dispatch = useDispatch();
   let boardFound = false;
   const board = useSelector((state) => {
