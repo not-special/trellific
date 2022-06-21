@@ -6,6 +6,10 @@ import { useDispatch } from "react-redux";
 import { fetchCard } from "../../features/cards/cards";
 import { useEffect } from "react";
 
+/*
+BUG: when modal is rendered and user refreshes browser, state is wiped out, 
+activeCard is undefined. need to fetchCard on refresh
+*/
 
 const CardModal = () => {
   // const activeCard = useSelector((state) => state.cards.find(card => card._id === state.activeCardId));
@@ -24,11 +28,15 @@ const CardModal = () => {
   // }
 
   const cardId = useParams().id;
+  console.log("CARD ID FROM MODAL:", cardId);
+  
   const dispatch = useDispatch();
   
   const activeCard = useSelector((state) => {
     return state.cards.find(c => c._id === cardId);
   });
+
+  console.log("MODAL COMPONENT ACTIVE CARD:", activeCard);
 
   useEffect(() => {
     dispatch(fetchCard(cardId));

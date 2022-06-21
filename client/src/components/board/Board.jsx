@@ -6,8 +6,13 @@ import Header from "./Header";
 // import CardModal from "./CardModal";
 import ExistingLists from "./ExistingLists"
 
+/*
+BUG: when modal is rendered board tries to refresh in the background but 
+params id refers to card... GET Request returns 200 with null payload
+*/
+
 const Board = () => {
-  const { id } = useParams();
+  const { id } = useParams(); 
   const dispatch = useDispatch();
   let boardFound = false;
   const board = useSelector((state) => {

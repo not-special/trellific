@@ -12,13 +12,20 @@ export const createCard = createAsyncThunk("cards/createCard", async (args) => {
     callback();
   }
   return data;
-}
-);
+});
+
+/*
+BUG: added guard clause checking for truthiness of cardId...
+useEffect in CardModal component invoking fetchCard before useParams hook
+assigns id to cardId
+*/
 
 export const fetchCard = createAsyncThunk("cards/fetchCard", async (args) => {
   const { cardId } = args;
-  const data = await apiClient.getCard({ cardId });
-  return data;
+  if (cardId) { // temp fix: guard clause... refactor
+    const data = await apiClient.getCard({ cardId });
+    return data;
+  }
 });
 
 const cardSlice = createSlice({
