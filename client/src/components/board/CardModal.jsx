@@ -1,52 +1,30 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-// import { activateCardId } from "../../features/cards/activeCardId";
 import { fetchCard } from "../../features/cards/cards";
 import { useEffect } from "react";
 
-/*
-BUG: when modal is rendered and user refreshes browser, state is wiped out, 
-activeCard is undefined. need to fetchCard on refresh
-*/
-
 const CardModal = () => {
-  // const activeCard = useSelector((state) => state.cards.find(card => card._id === state.activeCardId));
-  // const dispatch = useDispatch();
-
-  // const navigate = useNavigate();
-
-  const handleCloseModal = () => {    
-    // dispatch(activateCardId({ cardId: "" }));  
-    // navigate(`/boards/${activeCard.boardId}`);
-    console.log('handleCloseModal')  
-  }
-  
-  // if (!activeCard) {
-  //   return <div id="modal-container" className="modal-container"></div>;  
-  // }
-
   const cardId = useParams().id;
-  console.log("CARD ID FROM MODAL:", cardId);
-  
   const dispatch = useDispatch();
   
   const activeCard = useSelector((state) => {
     return state.cards.find(c => c._id === cardId);
   });
 
-  console.log("MODAL COMPONENT ACTIVE CARD:", activeCard);
-
   useEffect(() => {
-    dispatch(fetchCard(cardId));
+    dispatch(fetchCard({cardId}));
   }, [dispatch, cardId]);
 
   return (
-    <div id="modal-container" className="modal-container" onClick={handleCloseModal}>
+    <div id="modal-container" className="modal-container">
       <div className="screen"></div>
-      <div id="modal" onClick={e => e.stopPropagation()}>
-        <i className="x-icon icon close-modal" onClick={handleCloseModal}></i>
+
+      <div id="modal">
+        <Link to={`/boards/${activeCard.boardId}`}>
+          <i className="x-icon icon close-modal"></i>
+        </Link>
         <header>
           <i className="card-icon icon .close-modal"></i>
           <textarea className="list-title" style={{ height: "45px" }}>

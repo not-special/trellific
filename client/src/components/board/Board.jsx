@@ -2,15 +2,8 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchBoard } from "../../features/boards/boards";
-import { fetchCard } from "../../features/cards/cards";
 import Header from "./Header";
-// import CardModal from "./CardModal";
 import ExistingLists from "./ExistingLists"
-
-/*
-BUG: when modal is rendered board tries to refresh in the background but 
-params id refers to card... GET Request returns 200 with null payload
-*/
 
 const Board = () => {
   let { id } = useParams();
@@ -26,7 +19,6 @@ const Board = () => {
     boardFound = state.boards.find(b => b._id === id );
     return boardFound;
   });
-  
 
   useEffect(() => {
     dispatch(fetchBoard(id));
@@ -39,7 +31,6 @@ const Board = () => {
         <main>
           <ExistingLists boardId={board._id}/>
         </main>
-        {/* <CardModal /> */}
       </>
     )
   } else {
