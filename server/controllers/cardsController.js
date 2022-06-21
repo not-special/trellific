@@ -29,10 +29,22 @@ const getCard = async (req, res, next) => {
     .populate({path: "comments"})
     .populate({path: "actions"});
   
-    const { __v, ...response } = docCard._doc 
+  const { __v, ...response } = docCard._doc 
   res.status(200); 
+  res.json(response);
+}
+
+const editCard = async (req, res, next) => {
+  const docCard = await Card.findByIdAndUpdate(
+    req.params.id,
+    req.body.card,
+    { new: true }
+  )
+  const { __v, ...response } = docCard._doc 
+  res.status(201); 
   res.json(response);
 }
 
 exports.createCard = createCard;
 exports.getCard = getCard;
+exports.editCard = editCard;

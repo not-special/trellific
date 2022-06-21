@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -20,15 +21,22 @@ const CardModal = () => {
   }, [dispatch, cardId]);
 
   const handleCardTitleChange = (e) => {
-    console.log("card title: ", e.target.value);
     setTitle(e.target.value);
   }
 
   const handleSubmitNewTitle = () => {
-    // const { title, ...activeCardWithoutTitle } = activeCard;
     const cardClone = { ...activeCard };
-    cardClone.title = title;
-    dispatch(editCard({ cardId, ...cardClone }))
+    const {
+      actions, 
+      comments, 
+      boardId, 
+      commentsCount, 
+      createdAt, 
+      updatedAt,
+      _id, 
+      ...cardCloneCleaned} = cardClone;
+    cardCloneCleaned.title = title;
+    dispatch(editCard({ cardId, ...cardCloneCleaned }))
   }
 
   return (

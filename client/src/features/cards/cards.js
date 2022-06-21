@@ -47,8 +47,10 @@ const cardSlice = createSlice({
       return filteredState.concat(action.payload);
     });
     builder.addCase(editCard.fulfilled, (state, action) => {
-      console.log("In edit card case");
-      return state
+      let filteredState = state.filter(card => {
+        return card._id !== action.payload._id
+      });
+      return filteredState.concat(action.payload);
     })
   },
 });
