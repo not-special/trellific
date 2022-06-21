@@ -48,7 +48,8 @@ const CardSchema = new Schema(
     },
     comments: [
       {
-        type: String // TODO: update type to reference commends type?
+        type: Schema.Types.ObjectId,
+        ref: "Comment"
       }
     ],
     actions: [
