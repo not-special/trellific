@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchBoard } from "../boards/boards"; 
 import apiClient from "../../lib/ApiClient";
-import { activateCardId } from "./activeCardId";
+
 
 const initialState = [];
 
@@ -12,8 +12,13 @@ export const createCard = createAsyncThunk("cards/createCard", async (args) => {
     callback();
   }
   return data;
-}
-);
+});
+
+export const fetchCard = createAsyncThunk("cards/fetchCard", async (args) => {
+  const { cardId } = args;
+  const data = await apiClient.getCard({ cardId });
+  return data;
+});
 
 const cardSlice = createSlice({
   name: "cards",
@@ -29,12 +34,11 @@ const cardSlice = createSlice({
     builder.addCase(createCard.fulfilled, (state, action) => {
       state.push(action.payload);
     });
-    builder.addCase(activateCardId.fulfilled, (state, action) => {
-      if (action.payload) {
-        let filteredState = state.filter(card => card._id !== action.payload._id);
-        return filteredState.concat(action.payload);
-      }
-      return state;
+    builder.addCase(fetchCard.fulfilled, (state, action) => {
+      let filteredState = state.filter(card => {
+        return card._id !== action.payload._id
+      });
+      return filteredState.concat(action.payload);
     });
   },
 });
