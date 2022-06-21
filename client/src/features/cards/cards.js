@@ -20,6 +20,12 @@ export const fetchCard = createAsyncThunk("cards/fetchCard", async (args) => {
   return data;
 });
 
+export const editCard = createAsyncThunk("cards/editCard", async (args) => {
+  const {cardId, ...otherArgs } = args;
+  const data = await apiClient.editCard({cardId, otherArgs});
+  return data;
+})
+
 const cardSlice = createSlice({
   name: "cards",
   initialState,
@@ -40,6 +46,10 @@ const cardSlice = createSlice({
       });
       return filteredState.concat(action.payload);
     });
+    builder.addCase(editCard.fulfilled, (state, action) => {
+      console.log("In edit card case");
+      return state
+    })
   },
 });
 
