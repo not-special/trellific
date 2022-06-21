@@ -9,12 +9,15 @@ import { useEffect, useState } from "react";
 const CardModal = () => {
   const cardId = useParams().id;
   const dispatch = useDispatch();
+  const [ showDescriptionForm, setShowDescriptionForm ] = useState(false);
   
   const activeCard = useSelector((state) => {
     return state.cards.find(c => c._id === cardId);
   });
 
-  const [title, setTitle] = useState(activeCard.title)
+  const [ title, setTitle ] = useState(activeCard.title);
+  const [ description, setDescription ] = useState(activeCard.description);
+  const [ backupDescription, setBackupDescription ] = useState(activeCard.description);
 
   useEffect(() => {
     dispatch(fetchCard({cardId}));
@@ -24,8 +27,8 @@ const CardModal = () => {
     setTitle(e.target.value);
   }
 
-  const handleSubmitNewTitle = () => {
-    const cardClone = { ...activeCard };
+  const cleanCard = (card) => {
+    const cardClone = { ...card };
     const {
       actions, 
       comments, 
@@ -35,8 +38,64 @@ const CardModal = () => {
       updatedAt,
       _id, 
       ...cardCloneCleaned} = cardClone;
+    return cardCloneCleaned;
+  }
+
+  const handleSubmitNewTitle = () => {
+    const cardCloneCleaned = cleanCard(activeCard);
     cardCloneCleaned.title = title;
     dispatch(editCard({ cardId, ...cardCloneCleaned }))
+  };
+
+  const toggleShowDescriptionForm = () => {
+    setShowDescriptionForm(!showDescriptionForm);
+  };
+
+  const handleEditDescription = (e) => {
+    setDescription(e.target.value);
+  };
+
+  const handleCloseDescription = () => {
+    setDescription(backupDescription);
+    toggleShowDescriptionForm();
+  };
+
+  const handleSubmitNewDescription = () => {
+    const cardCloneCleaned = cleanCard(activeCard);
+    cardCloneCleaned.description = description;
+    dispatch(editCard({ cardId, ...cardCloneCleaned }));
+
+    setBackupDescription(description);
+    toggleShowDescriptionForm();
+  };
+
+  const descriptionElements = () => {
+    if (showDescriptionForm) {
+      return (
+        <>
+          <textarea className="textarea-toggle" rows="1" onChange={handleEditDescription}>{description}</textarea>
+          <div>
+            <div className="button" value="Save" onClick={handleSubmitNewDescription}>Save</div>
+            <i className="x-icon icon" onClick={handleCloseDescription}></i>
+          </div>
+        </>
+      )
+    }
+    return (
+      <>
+        <span id="description-edit" className="link" onClick={toggleShowDescriptionForm}>
+          Edit
+        </span>
+        <p className="textarea-overlay">
+          {description}
+        </p>
+        <p id="description-edit-options" className="hidden">
+          You have unsaved edits on this field.{" "}
+          <span className="link">View edits</span> -{" "}
+          <span className="link">Discard</span>
+        </p>
+      </>
+    )
   }
 
   return (
@@ -100,17 +159,7 @@ const CardModal = () => {
               </ul>
               <form className="description">
                 <p>Description</p>
-                <span id="description-edit" className="link">
-                  Edit
-                </span>
-                <p className="textarea-overlay">
-                  Cards have a symbol to indicate if they contain a description.
-                </p>
-                <p id="description-edit-options" className="hidden">
-                  You have unsaved edits on this field.{" "}
-                  <span className="link">View edits</span> -{" "}
-                  <span className="link">Discard</span>
-                </p>
+                {descriptionElements()}
               </form>
             </li>
             <li className="comment-section">
