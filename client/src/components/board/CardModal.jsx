@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { fetchCard } from "../../features/cards/cards";
-import { useEffect } from "react";
+import { editCard, fetchCard } from "../../features/cards/cards";
+import { useEffect, useState } from "react";
 
 const CardModal = () => {
   const cardId = useParams().id;
@@ -13,9 +14,30 @@ const CardModal = () => {
     return state.cards.find(c => c._id === cardId);
   });
 
+  const [title, setTitle] = useState(activeCard.title)
+
   useEffect(() => {
     dispatch(fetchCard({cardId}));
   }, [dispatch, cardId]);
+
+  const handleCardTitleChange = (e) => {
+    setTitle(e.target.value);
+  }
+
+  const handleSubmitNewTitle = () => {
+    const cardClone = { ...activeCard };
+    const {
+      actions, 
+      comments, 
+      boardId, 
+      commentsCount, 
+      createdAt, 
+      updatedAt,
+      _id, 
+      ...cardCloneCleaned} = cardClone;
+    cardCloneCleaned.title = title;
+    dispatch(editCard({ cardId, ...cardCloneCleaned }))
+  }
 
   return (
     <div id="modal-container" className="modal-container">
@@ -27,8 +49,8 @@ const CardModal = () => {
         </Link>
         <header>
           <i className="card-icon icon .close-modal"></i>
-          <textarea className="list-title" style={{ height: "45px" }}>
-            {activeCard.title}
+          <textarea className="list-title" style={{ height: "45px" }} onChange={handleCardTitleChange} onBlur={handleSubmitNewTitle}>
+            {title}
           </textarea>
           <p>
             in list <a className="link">Stuff to try (this is a list)</a>

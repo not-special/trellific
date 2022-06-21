@@ -16,6 +16,7 @@ router.put('/lists/:id', listsController.editList);
 
 router.post('/cards', cardsController.createCard);
 router.get('/cards/:id', cardsController.getCard);
+router.put('/cards/:id', cardsController.editCard);
 
 router.post('/comments', commentsController.createComment);
 
