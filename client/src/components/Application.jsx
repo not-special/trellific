@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import TopNav from "./shared/TopNav";
 import BoardsDashboardContainer from "./dashboard/BoardsDashboardContainer";
 import Board from "./board/Board";
-import CardModal from "./board/CardModal";
+import CardModal from "./card/CardModal";
 
 // TEST
 import UISection from "./ui/UISection";

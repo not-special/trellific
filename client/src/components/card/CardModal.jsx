@@ -12,6 +12,7 @@ const CardModal = () => {
   const dispatch = useDispatch();
   const [ showDescriptionForm, setShowDescriptionForm ] = useState(false);
   const [ newComment, setNewComment ] = useState();
+  const [ showDueDatePopover, setShowDueDatePopover ] = useState(false); 
   
   const activeCard = useSelector((state) => {
     return state.cards.find(c => c._id === cardId);
@@ -90,6 +91,29 @@ const CardModal = () => {
     setNewComment("");
   }
 
+  const toggleDueDatePopover = () => {
+    setShowDueDatePopover(!showDueDatePopover);
+  }
+
+  const dueDate = () => {
+    if (activeCard && activeCard.dueDate) {
+      return (
+        <li className="due-date-section">
+          <h3>Due Date</h3>
+          <div id="dueDateDisplay" className="overdue completed">
+            <input
+              id="dueDateCheckbox"
+              type="checkbox"
+              className="checkbox"
+              checked=""
+            />
+            { activeCard.dueDate } <span>(past due)</span>
+          </div>
+        </li>
+      )    
+    }
+  }
+
   const descriptionElements = () => {
     if (showDescriptionForm) {
       return (
@@ -163,18 +187,7 @@ const CardModal = () => {
                     <i className="plus-icon sm-icon"></i>
                   </div>
                 </li>
-                <li className="due-date-section">
-                  <h3>Due Date</h3>
-                  <div id="dueDateDisplay" className="overdue completed">
-                    <input
-                      id="dueDateCheckbox"
-                      type="checkbox"
-                      className="checkbox"
-                      checked=""
-                    />
-                    Aug 4 at 10:42 AM <span>(past due)</span>
-                  </div>
-                </li>
+                { dueDate() }
               </ul>
               <form className="description">
                 <p>Description</p>

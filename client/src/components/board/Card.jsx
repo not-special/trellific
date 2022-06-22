@@ -1,15 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { activateCardId } from "../../features/cards/activeCardId";
 
-const Card = ({ card }) => {
-  // const dispatch = useDispatch();
-  
-  // const handleCardClick = () => {
-  //   dispatch(activateCardId({ cardId: card._id })); // OLD
-  // };
-  
+const Card = ({ card }) => {  
   return (
       <div className="card-background">
         <Link to={`/cards/${card._id}`} >
