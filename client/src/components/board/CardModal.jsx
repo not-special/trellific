@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { editCard, fetchCard } from "../../features/cards/cards";
+import { createComment } from "../../features/comments/comments";
 import ExistingActivities from "./ExistingActivities"
 
 
@@ -10,6 +11,7 @@ const CardModal = () => {
   const cardId = useParams().id;
   const dispatch = useDispatch();
   const [ showDescriptionForm, setShowDescriptionForm ] = useState(false);
+  const [ newComment, setNewComment ] = useState();
   
   const activeCard = useSelector((state) => {
     return state.cards.find(c => c._id === cardId);
@@ -78,6 +80,15 @@ const CardModal = () => {
     setBackupDescription(description);
     toggleShowDescriptionForm();
   };
+
+  const handleEditNewComment = (e) => {
+    setNewComment(e.target.value);
+  }
+
+  const handleSubmitNewComment = () => {
+    dispatch(createComment({cardId: activeCard._id, text: newComment}));
+    setNewComment("");
+  }
 
   const descriptionElements = () => {
     if (showDescriptionForm) {
@@ -174,7 +185,7 @@ const CardModal = () => {
               <h2 className="comment-icon icon">Add Comment</h2>
               <div>
                 <div className="member-container">
-                  <div className="card-member">TP</div>
+                  <div className="card-member">AP</div>
                 </div>
                 <div className="comment">
                   <label>
@@ -182,6 +193,8 @@ const CardModal = () => {
                       required=""
                       rows="1"
                       placeholder="Write a comment..."
+                      value={newComment}
+                      onChange={handleEditNewComment}
                     ></textarea>
                     <div>
                       <a className="light-button card-icon sm-icon"></a>
@@ -194,6 +207,7 @@ const CardModal = () => {
                         type="submit"
                         className="button not-implemented"
                         value="Save"
+                        onClick={handleSubmitNewComment}
                       />
                     </div>
                   </label>

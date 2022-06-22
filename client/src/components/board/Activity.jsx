@@ -18,7 +18,6 @@ const Activity = ({ activity }) => {
       <div className="comment">
         <label>
           <textarea required="" rows="1">
-            {/* {activity.text} */}
           </textarea>
           <div>
             <a className="light-button card-icon sm-icon"></a>
