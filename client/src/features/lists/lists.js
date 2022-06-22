@@ -29,14 +29,17 @@ const listSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchBoard.fulfilled, (state, action) => {
-      const cleanedPayload = [];
+      if (action.payload) {
+        const cleanedPayload = [];
 
-      action.payload.lists.forEach(list => {
-        const { cards, ...otherProps } = list;
-        cleanedPayload.push(otherProps);
-      });
+        action.payload.lists.forEach(list => {
+          const { cards, ...otherProps } = list;
+          cleanedPayload.push(otherProps);
+        });
 
-      return cleanedPayload;
+        return cleanedPayload;  
+      }
+      
     });
     builder.addCase(createList.fulfilled, (state, action) => {
       state.push(action.payload);

@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchBoard } from "../boards/boards"; 
 import apiClient from "../../lib/ApiClient";
 
-
 const initialState = [];
 
 export const createCard = createAsyncThunk("cards/createCard", async (args) => {
@@ -32,10 +31,12 @@ const cardSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchBoard.fulfilled, (state, action) => {
-      return action.payload.lists.reduce((acc, list) => {
-        const { cards } = list;
-        return [...acc, ...cards];
-      }, [])
+      if (action.payload) {
+        return action.payload.lists.reduce((acc, list) => {
+          const { cards } = list;
+          return [...acc, ...cards];
+        }, []);
+      }
     });
     builder.addCase(createCard.fulfilled, (state, action) => {
       state.push(action.payload);
