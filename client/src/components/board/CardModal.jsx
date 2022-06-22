@@ -1,10 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { editCard, fetchCard } from "../../features/cards/cards";
-import { useEffect, useState } from "react";
 
 const CardModal = () => {
   const cardId = useParams().id;
@@ -15,9 +13,19 @@ const CardModal = () => {
     return state.cards.find(c => c._id === cardId);
   });
 
-  const [ title, setTitle ] = useState(activeCard.title);
-  const [ description, setDescription ] = useState(activeCard.description);
-  const [ backupDescription, setBackupDescription ] = useState(activeCard.description);
+  const activeCardTitle = activeCard ? activeCard.title : "";
+  const activeCardDescription = activeCard ? activeCard.description : "";
+  const activeCardBoardId = activeCard ? activeCard.boardId : "";
+
+  const [ title, setTitle ] = useState(activeCardTitle);
+  const [ description, setDescription ] = useState(activeCardDescription);
+  const [ backupDescription, setBackupDescription ] = useState(activeCardDescription);
+
+  useEffect(() => {
+    setTitle(activeCardTitle);
+    setDescription(activeCardDescription);
+    setBackupDescription(activeCardDescription);
+  }, [activeCardTitle, activeCardDescription])
 
   useEffect(() => {
     dispatch(fetchCard({cardId}));
@@ -73,7 +81,7 @@ const CardModal = () => {
     if (showDescriptionForm) {
       return (
         <>
-          <textarea className="textarea-toggle" rows="1" onChange={handleEditDescription}>{description}</textarea>
+          <textarea className="textarea-toggle" rows="1" onChange={handleEditDescription}>{description}</textarea> 
           <div>
             <div className="button" value="Save" onClick={handleSubmitNewDescription}>Save</div>
             <i className="x-icon icon" onClick={handleCloseDescription}></i>
@@ -103,14 +111,12 @@ const CardModal = () => {
       <div className="screen"></div>
 
       <div id="modal">
-        <Link to={`/boards/${activeCard.boardId}`}>
+        <Link to={`/boards/${activeCardBoardId}`}>
           <i className="x-icon icon close-modal"></i>
         </Link>
         <header>
           <i className="card-icon icon .close-modal"></i>
-          <textarea className="list-title" style={{ height: "45px" }} onChange={handleCardTitleChange} onBlur={handleSubmitNewTitle}>
-            {title}
-          </textarea>
+          <textarea className="list-title" style={{ height: "45px" }} onChange={handleCardTitleChange} onBlur={handleSubmitNewTitle} value={title}></textarea>
           <p>
             in list <a className="link">Stuff to try (this is a list)</a>
             <i className="sub-icon sm-icon"></i>
