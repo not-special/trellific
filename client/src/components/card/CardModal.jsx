@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { editCard, fetchCard } from "../../features/cards/cards";
 import { createComment } from "../../features/comments/comments";
 import ExistingActivities from "./ExistingActivities"
+import DueDatePopover from "./DueDatePopover";
 
 
 const CardModal = () => {
@@ -98,7 +99,7 @@ const CardModal = () => {
   const dueDate = () => {
     if (activeCard && activeCard.dueDate) {
       return (
-        <li className="due-date-section">
+        <li className="due-date-section" onClick={toggleDueDatePopover}>
           <h3>Due Date</h3>
           <div id="dueDateDisplay" className="overdue completed">
             <input
@@ -145,6 +146,7 @@ const CardModal = () => {
 
   return (
     <div id="modal-container" className="modal-container">
+      { showDueDatePopover ? <DueDatePopover toggleDueDatePopover={toggleDueDatePopover} /> : "" }
       <div className="screen"></div>
 
       <div id="modal">
@@ -242,7 +244,7 @@ const CardModal = () => {
             <li className="checklist-button">
               <i className="checklist-icon sm-icon"></i>Checklist
             </li>
-            <li className="date-button not-implemented">
+            <li className="date-button not-implemented" onClick={toggleDueDatePopover}>
               <i className="clock-icon sm-icon"></i>Due Date
             </li>
             <li className="attachment-button not-implemented">

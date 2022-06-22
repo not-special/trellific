@@ -50,11 +50,13 @@ class DueDatePopover extends React.Component {
     this.picker.show();
   }
   render() {
+    const { toggleDueDatePopover } = this.props
+
     return (
       <div className="popover due-date">
         <header>
           <span>Change due date</span>
-          <a href="#" className="icon-sm icon-close"></a>
+          <a href="#" className="icon-sm icon-close" onClick={toggleDueDatePopover}></a>
         </header>
         <div className="content">
           <form>
