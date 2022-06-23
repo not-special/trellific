@@ -11,9 +11,12 @@ class DueDatePopover extends React.Component {
       container: document.getElementById("calendar-widget"),
       firstDay: 1,
       yearRange: 10,
-      defaultDate: moment()
-        .add(1, "day")
-        .toDate(),
+      defaultDate: (function() {
+        if (this.props.activeCard.dueDate) {
+          return new Date(Date.parse(this.props.activeCard.dueDate, "YYYY-MM-DD"));
+        } 
+        return moment().add(1, "day").toDate();
+      }).bind(this)(),
       setDefaultDate: true,
       format: "M/D/YYYY",
       i18n: {
@@ -80,16 +83,6 @@ class DueDatePopover extends React.Component {
                 <label>
                   Date
                   <input type="text" placeholder="Enter date" autoFocus />
-                </label>
-              </div>
-              <div className="datepicker-select-time">
-                <label>
-                  Time
-                  <input
-                    type="text"
-                    placeholder="Enter time"
-                    value="12:00 PM"
-                  />
                 </label>
               </div>
               <div id="calendar-widget"></div>
