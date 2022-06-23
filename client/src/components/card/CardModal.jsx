@@ -112,7 +112,8 @@ const CardModal = () => {
               className="checkbox"
               checked=""
             />
-            { activeCard.dueDate } <span>(past due)</span>
+            { new Date(Date.parse(activeCard.dueDate, "YYYY-MM-DD")).toDateString() } 
+            <span> { Date.parse(activeCard.dueDate, "YYYY-MM-DD") < Date.now() ? "(past due)" : "" }</span>
           </div>
         </li>
       )    

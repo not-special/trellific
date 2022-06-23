@@ -11,9 +11,12 @@ class DueDatePopover extends React.Component {
       container: document.getElementById("calendar-widget"),
       firstDay: 1,
       yearRange: 10,
-      defaultDate: moment()
-        .add(1, "day")
-        .toDate(),
+      defaultDate: (function() {
+        if (this.props.activeCard.dueDate) {
+          return new Date(Date.parse(this.props.activeCard.dueDate, "YYYY-MM-DD"));
+        } 
+        return moment().add(1, "day").toDate();
+      }).bind(this)(),
       setDefaultDate: true,
       format: "M/D/YYYY",
       i18n: {
@@ -50,12 +53,20 @@ class DueDatePopover extends React.Component {
     });
     this.picker.show();
   }
+
   render() {
     const { toggleDueDatePopover, dispatch, activeCard } = this.props
 
     const handleRemoveDueDate = (e) => {
       const payload = { dueDate: null, cardId: activeCard._id };
       dispatch(editCard(payload));
+      toggleDueDatePopover();
+    }
+
+    const handleSubmitDueDate = (e) => {
+      e.preventDefault();
+      const payload = { dueDate: this.picker.getDate(), cardId: activeCard._id }
+      dispatch(editCard(payload))
       toggleDueDatePopover();
     }
 
@@ -66,22 +77,12 @@ class DueDatePopover extends React.Component {
           <a href="#" className="icon-sm icon-close" onClick={toggleDueDatePopover}></a>
         </header>
         <div className="content">
-          <form>
+          <form onSubmit={handleSubmitDueDate}>
             <div className="datepicker-select">
               <div className="datepicker-select-date">
                 <label>
                   Date
                   <input type="text" placeholder="Enter date" autoFocus />
-                </label>
-              </div>
-              <div className="datepicker-select-time">
-                <label>
-                  Time
-                  <input
-                    type="text"
-                    placeholder="Enter time"
-                    value="12:00 PM"
-                  />
                 </label>
               </div>
               <div id="calendar-widget"></div>
