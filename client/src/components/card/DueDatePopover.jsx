@@ -1,6 +1,7 @@
 import React from "react";
 import Pikaday from "pikaday";
 import moment from "moment";
+import { editCard } from "../../features/cards/cards";
 
 class DueDatePopover extends React.Component {
   componentDidMount() {
@@ -50,7 +51,13 @@ class DueDatePopover extends React.Component {
     this.picker.show();
   }
   render() {
-    const { toggleDueDatePopover } = this.props
+    const { toggleDueDatePopover, dispatch, activeCard } = this.props
+
+    const handleRemoveDueDate = (e) => {
+      const payload = { dueDate: null, cardId: activeCard._id };
+      dispatch(editCard(payload));
+      toggleDueDatePopover();
+    }
 
     return (
       <div className="popover due-date">
@@ -82,7 +89,7 @@ class DueDatePopover extends React.Component {
             <button className="button" type="submit">
               Save
             </button>
-            <button className="button red-button" type="reset">
+            <button className="button red-button" type="reset" onClick={handleRemoveDueDate}>
               Remove
             </button>
           </form>

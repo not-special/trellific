@@ -20,7 +20,7 @@ export const fetchCard = createAsyncThunk("cards/fetchCard", async (args) => {
 });
 
 export const editCard = createAsyncThunk("cards/editCard", async (args) => {
-  const {cardId, ...otherArgs } = args;
+  const { cardId, ...otherArgs } = args;
   const data = await apiClient.editCard({cardId, otherArgs});
   return data;
 })
