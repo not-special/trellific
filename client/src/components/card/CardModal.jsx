@@ -96,6 +96,10 @@ const CardModal = () => {
     setShowDueDatePopover(!showDueDatePopover);
   }
 
+  const handleRemoveDueDate = (e) => {
+    e.preventDefault();
+  }
+
   const dueDate = () => {
     if (activeCard && activeCard.dueDate) {
       return (
@@ -146,7 +150,7 @@ const CardModal = () => {
 
   return (
     <div id="modal-container" className="modal-container">
-      { showDueDatePopover ? <DueDatePopover toggleDueDatePopover={toggleDueDatePopover} /> : "" }
+      { showDueDatePopover ? <DueDatePopover activeCard={activeCard} dispatch={dispatch} toggleDueDatePopover={toggleDueDatePopover} handleRemoveDueDate={handleRemoveDueDate}/> : "" }
       <div className="screen"></div>
 
       <div id="modal">
