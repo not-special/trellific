@@ -6,6 +6,7 @@ import { editCard, fetchCard } from "../../features/cards/cards";
 import { createComment } from "../../features/comments/comments";
 import ExistingActivities from "./ExistingActivities"
 import DueDatePopover from "./DueDatePopover";
+import LabelsPopover from "./LabelsPopover";
 
 
 const CardModal = () => {
@@ -14,6 +15,7 @@ const CardModal = () => {
   const [ showDescriptionForm, setShowDescriptionForm ] = useState(false);
   const [ newComment, setNewComment ] = useState();
   const [ showDueDatePopover, setShowDueDatePopover ] = useState(false); 
+  const [ showLabelsPopover, setShowLabelsPopover ] = useState(false); 
   
   const activeCard = useSelector((state) => {
     return state.cards.find(c => c._id === cardId);
@@ -96,6 +98,10 @@ const CardModal = () => {
     setShowDueDatePopover(!showDueDatePopover);
   }
 
+  const toggleLabelsPopover = () => {
+    setShowLabelsPopover(!showLabelsPopover);
+  };
+
   const handleRemoveDueDate = (e) => {
     e.preventDefault();
   }
@@ -151,7 +157,8 @@ const CardModal = () => {
 
   return (
     <div id="modal-container" className="modal-container">
-      { showDueDatePopover ? <DueDatePopover activeCard={activeCard} dispatch={dispatch} toggleDueDatePopover={toggleDueDatePopover} handleRemoveDueDate={handleRemoveDueDate}/> : "" }
+      { showDueDatePopover ? <DueDatePopover activeCard={activeCard} dispatch={dispatch} toggleDueDatePopover={toggleDueDatePopover} /> : "" }
+      { showLabelsPopover ? <LabelsPopover activeCard={activeCard} toggleLabelsPopover={toggleLabelsPopover} /> : "" }
       <div className="screen"></div>
 
       <div id="modal">
@@ -243,7 +250,7 @@ const CardModal = () => {
             <li className="member-button">
               <i className="person-icon sm-icon"></i>Members
             </li>
-            <li className="label-button">
+            <li className="label-button" onClick={toggleLabelsPopover}>
               <i className="label-icon sm-icon"></i>Labels
             </li>
             <li className="checklist-button">
