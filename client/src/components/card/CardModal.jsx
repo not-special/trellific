@@ -188,10 +188,6 @@ const CardModal = () => {
         <header>
           <i className="card-icon icon .close-modal"></i>
           <textarea className="list-title" style={{ height: "45px" }} onChange={handleCardTitleChange} onBlur={handleSubmitNewTitle} value={title}></textarea>
-          <p>
-            in list <a className="link">Stuff to try (this is a list)</a>
-            <i className="sub-icon sm-icon"></i>
-          </p>
         </header>
         <section className="modal-main">
           <ul className="modal-outer-list">
@@ -221,10 +217,10 @@ const CardModal = () => {
                       onChange={handleEditNewComment}
                     ></textarea>
                     <div>
-                      <a className="light-button card-icon sm-icon"></a>
+                      {/* <a className="light-button card-icon sm-icon"></a>
                       <a className="light-button smiley-icon sm-icon"></a>
                       <a className="light-button email-icon sm-icon"></a>
-                      <a className="light-button attachment-icon sm-icon"></a>
+                      <a className="light-button attachment-icon sm-icon"></a> */}
                     </div>
                     <div>
                       <input
@@ -244,23 +240,23 @@ const CardModal = () => {
         <aside className="modal-buttons">
           <h2>Add</h2>
           <ul>
-            <li className="member-button">
+            {/* <li className="member-button">
               <i className="person-icon sm-icon"></i>Members
-            </li>
+            </li> */}
             <li className="label-button" onClick={toggleLabelsPopover}>
               <i className="label-icon sm-icon"></i>Labels
             </li>
-            <li className="checklist-button">
+            {/* <li className="checklist-button">
               <i className="checklist-icon sm-icon"></i>Checklist
-            </li>
+            </li> */}
             <li className="date-button not-implemented" onClick={toggleDueDatePopover}>
               <i className="clock-icon sm-icon"></i>Due Date
             </li>
-            <li className="attachment-button not-implemented">
+            {/* <li className="attachment-button not-implemented">
               <i className="attachment-icon sm-icon"></i>Attachment
-            </li>
+            </li> */}
           </ul>
-          <h2>Actions</h2>
+          {/* <h2>Actions</h2>
           <ul>
             <li className="move-button">
               <i className="forward-icon sm-icon"></i>Move
@@ -276,10 +272,10 @@ const CardModal = () => {
             <li className="archive-button">
               <i className="file-icon sm-icon "></i>Archive
             </li>
-          </ul>
-          <ul className="light-list">
+          </ul> */}
+          {/* <ul className="light-list">
             <li className="not-implemented">Share and more...</li>
-          </ul>
+          </ul> */}
         </aside>
       </div>
     </div>
