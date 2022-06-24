@@ -26,7 +26,7 @@ export const formatDateShort = (dueDateStr) => {
 }
 
 export const pastDue = (dueDateStr) => {
-  return Date.parse(dueDateStr, "YYYY-MM-DD") < Date.now();
+  return dateDiff(dueDateStr) < 0;
 }
 
 const millisecondsToDays = (ms) => {
@@ -36,4 +36,15 @@ const millisecondsToDays = (ms) => {
 export const dateDiff = (dueDateStr) => {
   const diff = millisecondsToDays(Date.parse(dueDateStr, "YYYY-MM-DD") - Date.now());
   return diff;
+}
+
+export const dueDateStatus = (dueDateStr) => {
+  const daysUntilDue = dateDiff(dueDateStr);
+  
+  if (daysUntilDue < 0) {
+    return "overdue"
+  } else if (daysUntilDue < 3) {
+    return "due-soon"
+  }
+  return "due-later"
 }

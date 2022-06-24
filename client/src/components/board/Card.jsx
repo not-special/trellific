@@ -1,20 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { formatDateShort, dateDiff } from "../../lib/Utils";
-
-
-const dueDateClass = (daysUntilDue) => {
-  if (daysUntilDue < 0) {
-    return "overdue"
-  } else if (daysUntilDue < 3) {
-    return "due-soon"
-  }
-  return "due-later"
-}
+import { formatDateShort, dueDateStatus } from "../../lib/Utils";
 
 const dueDateIcon = (dueDate) => {
   if (dueDate) {
-    return <i className={`clock-icon sm-icon ${dueDateClass(dateDiff(dueDate))}`}>{formatDateShort(dueDate)}</i>
+    return <i className={`clock-icon sm-icon ${dueDateStatus(dueDate)}`}>{formatDateShort(dueDate)}</i>
   }
 }
 
