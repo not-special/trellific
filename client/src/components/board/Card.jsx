@@ -14,6 +14,12 @@ const descriptionIcon = (description) => {
   }
 }
 
+const commentsIcon = (comments) => {
+  if (comments.length) {
+    return <i className="comment-icon sm-icon"></i>
+  }
+}
+
 const Card = ({ card }) => {  
   return (
       <div className="card-background">
@@ -28,6 +34,7 @@ const Card = ({ card }) => {
             <div className="card-icons">
               { dueDateIcon(card.dueDate) }
               { descriptionIcon(card.description) }
+              { commentsIcon(card.comments) }
             </div>
           </div>
         </Link>
