@@ -5,12 +5,11 @@ import { cleanCard } from "../../lib/Utils";
 
 const Title = ({ activeCard }) => {
   const dispatch = useDispatch();
-
   const [ title, setTitle ] = useState(activeCard.title)
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
-  }
+  };
 
   const handleSubmitNewTitle = () => {
     const cardCloneCleaned = cleanCard(activeCard);

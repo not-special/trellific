@@ -8,13 +8,14 @@ import ExistingActivities from "./ExistingActivities"
 import DueDatePopover from "./DueDatePopover";
 import LabelsPopover from "./LabelsPopover";
 import Title from "./Title";
+import Description from "./Description";
 import { cleanCard } from "../../lib/Utils";
 
 
 const CardModal = () => {
   const cardId = useParams().id;
   const dispatch = useDispatch();
-  const [ showDescriptionForm, setShowDescriptionForm ] = useState(false);
+  
   const [ newComment, setNewComment ] = useState();
   const [ showDueDatePopover, setShowDueDatePopover ] = useState(false); 
   const [ showLabelsPopover, setShowLabelsPopover ] = useState(false); 
@@ -23,42 +24,11 @@ const CardModal = () => {
     return state.cards.find(c => c._id === cardId);
   });
 
-  const activeCardDescription = activeCard ? activeCard.description : "";
   const activeCardBoardId = activeCard ? activeCard.boardId : "";
-
-  const [ description, setDescription ] = useState(activeCardDescription);
-  const [ backupDescription, setBackupDescription ] = useState(activeCardDescription);
-
-  useEffect(() => {
-    setDescription(activeCardDescription);
-    setBackupDescription(activeCardDescription);
-  }, [activeCardDescription])
 
   useEffect(() => {
     dispatch(fetchCard({cardId}));
   }, [dispatch, cardId]);
-
-  const toggleShowDescriptionForm = () => {
-    setShowDescriptionForm(!showDescriptionForm);
-  };
-
-  const handleEditDescription = (e) => {
-    setDescription(e.target.value);
-  };
-
-  const handleCloseDescription = () => {
-    setDescription(backupDescription);
-    toggleShowDescriptionForm();
-  };
-
-  const handleSubmitNewDescription = () => {
-    const cardCloneCleaned = cleanCard(activeCard);
-    cardCloneCleaned.description = description;
-    dispatch(editCard({ cardId, ...cardCloneCleaned }));
-
-    setBackupDescription(description);
-    toggleShowDescriptionForm();
-  };
 
   const handleEditNewComment = (e) => {
     setNewComment(e.target.value);
@@ -121,35 +91,6 @@ const CardModal = () => {
     }
   }
 
-  const descriptionElements = () => {
-    if (showDescriptionForm) {
-      return (
-        <>
-          <textarea className="textarea-toggle" rows="1" onChange={handleEditDescription}>{description}</textarea> 
-          <div>
-            <div className="button" value="Save" onClick={handleSubmitNewDescription}>Save</div>
-            <i className="x-icon icon" onClick={handleCloseDescription}></i>
-          </div>
-        </>
-      )
-    }
-    return (
-      <>
-        <span id="description-edit" className="link" onClick={toggleShowDescriptionForm}>
-          Edit
-        </span>
-        <p className="textarea-overlay">
-          {description}
-        </p>
-        <p id="description-edit-options" className="hidden">
-          You have unsaved edits on this field.{" "}
-          <span className="link">View edits</span> -{" "}
-          <span className="link">Discard</span>
-        </p>
-      </>
-    )
-  }
-
   if (!activeCard) {
     return null
   }
@@ -167,7 +108,6 @@ const CardModal = () => {
         <header>
           <i className="card-icon icon .close-modal"></i>
           <Title activeCard={activeCard}/>
-          {/* <textarea className="list-title" style={{ height: "45px" }} onChange={handleCardTitleChange} onBlur={handleSubmitNewTitle} value={title}></textarea> */}
         </header>
         <section className="modal-main">
           <ul className="modal-outer-list">
@@ -176,10 +116,7 @@ const CardModal = () => {
                 { renderLabels() }
                 { dueDate() }
               </ul>
-              <form className="description">
-                <p>Description</p>
-                {descriptionElements()}
-              </form>
+              <Description activeCard={activeCard}/>
             </li>
             <li className="comment-section">
               <h2 className="comment-icon icon">Add Comment</h2>
