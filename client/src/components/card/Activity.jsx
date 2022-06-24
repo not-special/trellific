@@ -1,13 +1,14 @@
 import React from "react";
+import { USER_INITIALS, USER_NAME } from "../../constants/DummyNames";
 
 
 const Activity = ({ activity }) => {
   return (
     <li>
       <div className="member-container">
-        <div className="card-member">AP</div>
+        <div className="card-member">{ USER_INITIALS }</div>
       </div>
-      <h3>Anonymous Poster</h3>
+      <h3>{ USER_NAME }</h3>
       <div className="comment static-comment">
         <span>{activity.text}</span>
       </div>

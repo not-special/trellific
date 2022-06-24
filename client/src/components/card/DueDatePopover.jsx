@@ -57,7 +57,7 @@ class DueDatePopover extends React.Component {
   render() {
     const { toggleDueDatePopover, dispatch, activeCard } = this.props
 
-    const handleRemoveDueDate = (e) => {
+    const handleRemoveDueDate = () => {
       const payload = { dueDate: null, cardId: activeCard._id };
       dispatch(editCard(payload));
       toggleDueDatePopover();
@@ -77,7 +77,7 @@ class DueDatePopover extends React.Component {
           <a href="#" className="icon-sm icon-close" onClick={toggleDueDatePopover}></a>
         </header>
         <div className="content">
-          <form onSubmit={handleSubmitDueDate}>
+          <form defaultChecked onSubmit={handleSubmitDueDate}>
             <div className="datepicker-select">
               <div className="datepicker-select-date">
                 <label>
