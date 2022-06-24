@@ -10,7 +10,7 @@ const DueDate = ({ toggleDueDatePopover, activeCard }) => {
             id="dueDateCheckbox"
             type="checkbox"
             className="checkbox"
-            defaultChecked
+            defaultChecked=""
           />
           { new Date(Date.parse(activeCard.dueDate, "YYYY-MM-DD")).toDateString() } 
           <span> { Date.parse(activeCard.dueDate, "YYYY-MM-DD") < Date.now() ? "(past due)" : "" }</span>

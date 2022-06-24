@@ -18,7 +18,10 @@ const Title = ({ activeCard }) => {
   };
 
   return (
-    <textarea className="list-title" style={{ height: "45px" }} onChange={handleTitleChange} onBlur={handleSubmitNewTitle} value={title}></textarea>
+    <header>
+          <i className="card-icon icon .close-modal"></i>
+      <textarea className="list-title" style={{ height: "45px" }} onChange={handleTitleChange} onBlur={handleSubmitNewTitle} value={title}></textarea>
+    </header>
   )
 }
 
