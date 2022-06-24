@@ -1,4 +1,5 @@
 import React from "react"
+import { formatDateLong, pastDue } from "../../lib/Utils";
 
 const DueDate = ({ toggleDueDatePopover, activeCard }) => {
   if (activeCard.dueDate) {
@@ -12,8 +13,8 @@ const DueDate = ({ toggleDueDatePopover, activeCard }) => {
             className="checkbox"
             defaultChecked=""
           />
-          { new Date(Date.parse(activeCard.dueDate, "YYYY-MM-DD")).toDateString() } 
-          <span> { Date.parse(activeCard.dueDate, "YYYY-MM-DD") < Date.now() ? "(past due)" : "" }</span>
+          { formatDateLong(activeCard.dueDate) } 
+          <span> { pastDue(activeCard.dueDate) ? "(past due)" : "" }</span>
         </div>
       </li>
     )

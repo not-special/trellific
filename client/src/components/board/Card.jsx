@@ -1,5 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { formatDateShort, dateDiff } from "../../lib/Utils";
+
+
+const dueDateClass = (daysUntilDue) => {
+  if (daysUntilDue < 0) {
+    return "overdue"
+  } else if (daysUntilDue < 3) {
+    return "due-soon"
+  }
+  return "due-later"
+}
+
+const dueDateIcon = (dueDate) => {
+  if (dueDate) {
+    return <i className={`clock-icon sm-icon ${dueDateClass(dateDiff(dueDate))}`}>{formatDateShort(dueDate)}</i>
+  }
+}
 
 const Card = ({ card }) => {  
   return (
@@ -12,7 +29,10 @@ const Card = ({ card }) => {
               {card.labels.map(color => <div key={color} className={`card-label ${color} colorblindable`}></div>)}
               <p>{card.title}</p>
             </div>
-            <div className="card-icons"></div>
+            <div className="card-icons">
+              { dueDateIcon(card.dueDate) }
+              <i className="description-icon sm-icon"></i>
+            </div>
           </div>
         </Link>
       </div>
