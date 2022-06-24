@@ -7,6 +7,8 @@ import { createComment } from "../../features/comments/comments";
 import ExistingActivities from "./ExistingActivities"
 import DueDatePopover from "./DueDatePopover";
 import LabelsPopover from "./LabelsPopover";
+import Title from "./Title";
+import { cleanCard } from "../../lib/Utils";
 
 
 const CardModal = () => {
@@ -21,47 +23,20 @@ const CardModal = () => {
     return state.cards.find(c => c._id === cardId);
   });
 
-  const activeCardTitle = activeCard ? activeCard.title : "";
   const activeCardDescription = activeCard ? activeCard.description : "";
   const activeCardBoardId = activeCard ? activeCard.boardId : "";
 
-  const [ title, setTitle ] = useState(activeCardTitle);
   const [ description, setDescription ] = useState(activeCardDescription);
   const [ backupDescription, setBackupDescription ] = useState(activeCardDescription);
 
   useEffect(() => {
-    setTitle(activeCardTitle);
     setDescription(activeCardDescription);
     setBackupDescription(activeCardDescription);
-  }, [activeCardTitle, activeCardDescription])
+  }, [activeCardDescription])
 
   useEffect(() => {
     dispatch(fetchCard({cardId}));
   }, [dispatch, cardId]);
-
-  const handleCardTitleChange = (e) => {
-    setTitle(e.target.value);
-  }
-
-  const cleanCard = (card) => {
-    const cardClone = { ...card };
-    const {
-      actions, 
-      comments, 
-      boardId, 
-      commentsCount, 
-      createdAt, 
-      updatedAt,
-      _id, 
-      ...cardCloneCleaned} = cardClone;
-    return cardCloneCleaned;
-  }
-
-  const handleSubmitNewTitle = () => {
-    const cardCloneCleaned = cleanCard(activeCard);
-    cardCloneCleaned.title = title;
-    dispatch(editCard({ cardId, ...cardCloneCleaned }))
-  };
 
   const toggleShowDescriptionForm = () => {
     setShowDescriptionForm(!showDescriptionForm);
@@ -175,6 +150,10 @@ const CardModal = () => {
     )
   }
 
+  if (!activeCard) {
+    return null
+  }
+
   return (
     <div id="modal-container" className="modal-container">
       { showDueDatePopover ? <DueDatePopover activeCard={activeCard} dispatch={dispatch} toggleDueDatePopover={toggleDueDatePopover} /> : "" }
@@ -187,7 +166,8 @@ const CardModal = () => {
         </Link>
         <header>
           <i className="card-icon icon .close-modal"></i>
-          <textarea className="list-title" style={{ height: "45px" }} onChange={handleCardTitleChange} onBlur={handleSubmitNewTitle} value={title}></textarea>
+          <Title activeCard={activeCard}/>
+          {/* <textarea className="list-title" style={{ height: "45px" }} onChange={handleCardTitleChange} onBlur={handleSubmitNewTitle} value={title}></textarea> */}
         </header>
         <section className="modal-main">
           <ul className="modal-outer-list">
