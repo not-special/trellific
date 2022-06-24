@@ -11,6 +11,7 @@ import Description from "./Description";
 import AddCommentForm from "./AddCommentForm";
 import DueDate from "./DueDate";
 import ExistingLabels from "./ExistingLabels";
+import Buttons from "./Buttons";
 
 const CardModal = () => {
   const cardId = useParams().id;
@@ -65,17 +66,7 @@ const CardModal = () => {
             <ExistingActivities />
           </ul>
         </section>
-        <aside className="modal-buttons">
-          <h2>Add</h2>
-          <ul>
-            <li className="label-button" onClick={toggleLabelsPopover}>
-              <i className="label-icon sm-icon"></i>Labels
-            </li>
-            <li className="date-button not-implemented" onClick={toggleDueDatePopover}>
-              <i className="clock-icon sm-icon"></i>Due Date
-            </li>
-          </ul>
-        </aside>
+        <Buttons toggleLabelsPopover={toggleLabelsPopover} toggleDueDatePopover={toggleDueDatePopover}/>
       </div>
     </div>
   );
