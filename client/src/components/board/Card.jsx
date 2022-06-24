@@ -8,6 +8,12 @@ const dueDateIcon = (dueDate) => {
   }
 }
 
+const descriptionIcon = (description) => {
+  if (description !== "") {
+    return <i className="description-icon sm-icon"></i>
+  }
+}
+
 const Card = ({ card }) => {  
   return (
       <div className="card-background">
@@ -21,7 +27,7 @@ const Card = ({ card }) => {
             </div>
             <div className="card-icons">
               { dueDateIcon(card.dueDate) }
-              <i className="description-icon sm-icon"></i>
+              { descriptionIcon(card.description) }
             </div>
           </div>
         </Link>
