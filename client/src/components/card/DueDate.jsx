@@ -1,19 +1,20 @@
 import React from "react"
+import { formatDateLong, pastDue, dueDateStatus } from "../../lib/Utils";
 
 const DueDate = ({ toggleDueDatePopover, activeCard }) => {
   if (activeCard.dueDate) {
     return (
       <li className="due-date-section" onClick={toggleDueDatePopover}>
         <h3>Due Date</h3>
-        <div id="dueDateDisplay" className="overdue completed">
+        <div id="dueDateDisplay" className={dueDateStatus(activeCard.dueDate)}>
           <input
             id="dueDateCheckbox"
             type="checkbox"
             className="checkbox"
             defaultChecked=""
           />
-          { new Date(Date.parse(activeCard.dueDate, "YYYY-MM-DD")).toDateString() } 
-          <span> { Date.parse(activeCard.dueDate, "YYYY-MM-DD") < Date.now() ? "(past due)" : "" }</span>
+          { formatDateLong(activeCard.dueDate) } 
+          <span> { pastDue(activeCard.dueDate) ? "(past due)" : "" }</span>
         </div>
       </li>
     )
