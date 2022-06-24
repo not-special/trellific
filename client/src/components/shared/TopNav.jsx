@@ -1,4 +1,5 @@
 import React from "react";
+import { USER_NAME, USER_INITIALS } from "../../constants/DummyNames";
 
 const TopNav = () => (
   <nav>
@@ -20,8 +21,8 @@ const TopNav = () => (
     <h1>Trello</h1>
     <ul className="user-info">
       <li className="create-icon icon"></li>
-      <li className="split-button-1">VR</li>
-      <li className="split-button-2">Victor Reyes</li>
+      <li className="split-button-1">{USER_INITIALS}</li>
+      <li className="split-button-2">{USER_NAME}</li>
       <li className="info-icon icon"></li>
       <li className="notifications-icon icon"></li>
     </ul>

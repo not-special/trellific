@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { USER_INITIALS } from "../../constants/DummyNames";
 import { createComment } from "../../features/comments/comments";
 
 const AddCommentForm = ({ activeCard }) => {
@@ -21,7 +22,7 @@ const AddCommentForm = ({ activeCard }) => {
       <h2 className="comment-icon icon">Add Comment</h2>
       <div>
         <div className="member-container">
-          <div className="card-member">AP</div>
+          <div className="card-member">{ USER_INITIALS }</div>
         </div>
         <div className="comment">
           <label>
