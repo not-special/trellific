@@ -12,10 +12,6 @@ const Activity = ({ activity }) => {
       <div className="comment static-comment">
         <span>{activity.text}</span>
       </div>
-      <small>
-        22 minutes ago - <span className="link">Edit</span> -{" "}
-        <span className="link">Delete</span>
-      </small>
       <div className="comment">
         <label>
           <textarea required="" rows="1">

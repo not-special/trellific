@@ -2,9 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { formatDateShort, dueDateStatus } from "../../lib/Utils";
 
-const dueDateIcon = (dueDate) => {
-  if (dueDate) {
-    return <i className={`clock-icon sm-icon ${dueDateStatus(dueDate)}`}>{formatDateShort(dueDate)}</i>
+const dueDateIcon = (card) => {
+  if (card.dueDate && !card.completed ) {
+    return <i className={`clock-icon sm-icon ${dueDateStatus(card.dueDate)}`}>{formatDateShort(card.dueDate)}</i>
+  } else if (card.dueDate) {
+    return <i className={`clock-icon sm-icon green`}>{formatDateShort(card.dueDate)}</i>
   }
 }
 
@@ -32,7 +34,7 @@ const Card = ({ card }) => {
               <p>{card.title}</p>
             </div>
             <div className="card-icons">
-              { dueDateIcon(card.dueDate) }
+              { dueDateIcon(card) }
               { descriptionIcon(card.description) }
               { commentsIcon(card.comments) }
             </div>
