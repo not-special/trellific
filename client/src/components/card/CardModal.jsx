@@ -2,21 +2,19 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { editCard, fetchCard } from "../../features/cards/cards";
-import { createComment } from "../../features/comments/comments";
+import { fetchCard } from "../../features/cards/cards";
 import ExistingActivities from "./ExistingActivities"
 import DueDatePopover from "./DueDatePopover";
 import LabelsPopover from "./LabelsPopover";
 import Title from "./Title";
 import Description from "./Description";
-import { cleanCard } from "../../lib/Utils";
+import AddCommentForm from "./AddCommentForm";
 
 
 const CardModal = () => {
   const cardId = useParams().id;
   const dispatch = useDispatch();
   
-  const [ newComment, setNewComment ] = useState();
   const [ showDueDatePopover, setShowDueDatePopover ] = useState(false); 
   const [ showLabelsPopover, setShowLabelsPopover ] = useState(false); 
   
@@ -29,15 +27,6 @@ const CardModal = () => {
   useEffect(() => {
     dispatch(fetchCard({cardId}));
   }, [dispatch, cardId]);
-
-  const handleEditNewComment = (e) => {
-    setNewComment(e.target.value);
-  }
-
-  const handleSubmitNewComment = () => {
-    dispatch(createComment({cardId: activeCard._id, text: newComment}));
-    setNewComment("");
-  }
 
   const toggleDueDatePopover = () => {
     setShowDueDatePopover(!showDueDatePopover);
@@ -81,7 +70,7 @@ const CardModal = () => {
               id="dueDateCheckbox"
               type="checkbox"
               className="checkbox"
-              checked=""
+              defaultChecked
             />
             { new Date(Date.parse(activeCard.dueDate, "YYYY-MM-DD")).toDateString() } 
             <span> { Date.parse(activeCard.dueDate, "YYYY-MM-DD") < Date.now() ? "(past due)" : "" }</span>
@@ -118,39 +107,7 @@ const CardModal = () => {
               </ul>
               <Description activeCard={activeCard}/>
             </li>
-            <li className="comment-section">
-              <h2 className="comment-icon icon">Add Comment</h2>
-              <div>
-                <div className="member-container">
-                  <div className="card-member">AP</div>
-                </div>
-                <div className="comment">
-                  <label>
-                    <textarea
-                      required=""
-                      rows="1"
-                      placeholder="Write a comment..."
-                      value={newComment}
-                      onChange={handleEditNewComment}
-                    ></textarea>
-                    <div>
-                      {/* <a className="light-button card-icon sm-icon"></a>
-                      <a className="light-button smiley-icon sm-icon"></a>
-                      <a className="light-button email-icon sm-icon"></a>
-                      <a className="light-button attachment-icon sm-icon"></a> */}
-                    </div>
-                    <div>
-                      <input
-                        type="submit"
-                        className="button not-implemented"
-                        value="Save"
-                        onClick={handleSubmitNewComment}
-                      />
-                    </div>
-                  </label>
-                </div>
-              </div>
-            </li>
+            <AddCommentForm activeCard={activeCard}/>
             <ExistingActivities />
           </ul>
         </section>
