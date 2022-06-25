@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  server:
+    build: ./server
+    container_name: server_c
+    ports:
+      - '5001:5001'
+    env_file:
+      - ./server/.env
+  client:
+    build: ./client
+    container_name: client_c
+    ports:
+      - '3000:3000'
+    stdin_open: true
+    tty: true
