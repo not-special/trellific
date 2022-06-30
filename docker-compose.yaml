@@ -1,16 +1,30 @@
 version: "3.8"
 services:
-  server:
-    build: ./server
-    container_name: server_c
+  nginx:
+    depends_on:
+      - client
+      - backend
+    restart: always # because it is routing traffic to our entire app
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
     ports:
-      - '5001:5001'
-    env_file:
-      - ./server/.env
+      - '80:80'
   client:
-    build: ./client
-    container_name: client_c
-    ports:
-      - '3000:3000'
-    stdin_open: true
-    tty: true
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    # ports:
+    #   - '3000:3000'
+    restart: on-failure
+    container_name: client
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    # ports:
+    #   - '3001:3001'
+    restart: on-failure
+    container_name: server
+    env_file:
+      - ./env/backend.env

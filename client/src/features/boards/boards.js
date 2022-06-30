@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../lib/ApiClient";
 
@@ -18,7 +19,7 @@ export const createBoard = createAsyncThunk(
   async (newBoard, callback) => {
     const data = await apiClient.createBoard(newBoard);
     if (callback) {
-      callback;
+      callback();
     }
     return data;
   }
