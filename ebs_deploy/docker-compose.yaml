@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  nginx:
+    image: tdronkers04/trellific_nginx:1.0
+    depends_on:
+      - client
+      - backend
+    restart: always
+    ports:
+      - '80:80'
+  client:
+    image: tdronkers04/trellific_client:1.0
+    restart: on-failure
+    container_name: client
+  backend:
+    image: tdronkers04/trellific_backend:1.0
+    restart: on-failure
+    container_name: backend
+    environment:
+      - PORT=3001
+      - DB=mongodb+srv://notspecial:capstone2022@cluster0.nxvqefz.mongodb.net/trellific?retryWrites=true&w=majority

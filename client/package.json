@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://server:5001",
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@babel/core": "^7.15.5",
     "@reduxjs/toolkit": "^1.8.2",
