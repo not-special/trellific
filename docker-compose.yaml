@@ -18,13 +18,13 @@ services:
     #   - '3000:3000'
     restart: on-failure
     container_name: client
-  server:
+  backend:
     build:
       context: ./server
       dockerfile: Dockerfile
     # ports:
     #   - '3001:3001'
     restart: on-failure
-    container_name: server
+    container_name: backend
     env_file:
       - ./env/backend.env
