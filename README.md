@@ -1,3 +1,15 @@
+## Docker
+naviagte to `./client/package.json` and update `proxy:"http://server:5001"`
+Run `docker-compose up` from root directory to initiate build of images and run containers locally
+push images to your docker hub repo
+tutorial: https://www.youtube.com/watch?v=nhqcecpi47s&list=PLq8koenaAJWsA4Vu95Q_Lfq6R-7MQkIXd&index=8
+
+## Deploy to AWS Elastic Beanstalk
+navigate to `./ebs_deploy` and follow instructions in tutorial below
+note: instead of pushing local images to AWS ECR, just reference the docker hub images in the deployment `docker-compose.yaml` file
+tutorial: https://medium.com/adessoturkey/aws-elastic-beanstalk-with-docker-compose-yml-file-ae5958569b2f
+
+
 ## DataBase Setup
 
 1. Create mongoDB account - https://account.mongodb.com/account/register
