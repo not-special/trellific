@@ -9,7 +9,7 @@ const ExistingLists = ({ boardId }) => {
   const [activeAddCardList, setActiveAddCardList] = useState(null);
 
   const sortedLists = () => {
-    const listsCopy = [...lists];
+    const listsCopy = [...lists]; // https://stackoverflow.com/questions/64957735/typeerror-cannot-assign-to-read-only-property-0-of-object-object-array-in
     listsCopy.sort((a, b) => a.position - b.position );
     return listsCopy;
   }

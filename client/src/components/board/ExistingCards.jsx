@@ -7,9 +7,15 @@ const ExistingCards = ({ listId }) => {
     return state.cards.filter(card => card.listId === listId);
   });
 
+  const sortedCards = () => {
+    const cardsCopy = [...cards]; // https://stackoverflow.com/questions/64957735/typeerror-cannot-assign-to-read-only-property-0-of-object-object-array-in
+    cardsCopy.sort((a, b) => a.position - b.position );
+    return cardsCopy;
+  }
+
   return (
     <div id="cards-container" data-id="list-1-cards">
-      { cards.map(card => <Card key={card._id} card={card}/>) }
+      { sortedCards().map(card => <Card key={card._id} card={card}/>) }
     </div>
   )
 };
