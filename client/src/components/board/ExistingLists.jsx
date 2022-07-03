@@ -8,10 +8,16 @@ const ExistingLists = ({ boardId }) => {
 
   const [activeAddCardList, setActiveAddCardList] = useState(null);
 
+  const sortedLists = () => {
+    const listsCopy = [...lists];
+    listsCopy.sort((a, b) => a.position - b.position );
+    return listsCopy;
+  }
+
   return (
     <div id="list-container" className="list-container">
       <div id="existing-lists" className="existing-lists">
-      { lists.map(list => <List 
+      { sortedLists().map(list => <List 
         activeAddCardList={activeAddCardList} 
         setActiveAddCardList={setActiveAddCardList} 
         key={list._id} 
