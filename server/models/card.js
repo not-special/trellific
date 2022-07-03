@@ -61,6 +61,26 @@ const CardSchema = new Schema(
   , { timestamps: true }
 );
 
+const getCards = async (listId) => {
+  const docCards = await Card
+    .find({ listId: listId })
+  
+  return docCards;
+}
+
+const getLastCardPosition = async (listId) => {
+  const cards = await getCards(listId);
+  if (cards.length > 0) {
+    // sort in descending order by position
+    cards.sort((a, b) => b.position - a.position);
+    return cards[0].position;
+  }
+  return 0;
+}
+
 const Card = mongoose.model('Card', CardSchema);
 
-module.exports = Card;
+module.exports = {
+  Card,
+  getLastCardPosition
+}

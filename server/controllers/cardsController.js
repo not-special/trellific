@@ -1,16 +1,19 @@
 const { List } = require("../models/list");
 const HttpError = require("../models/httpError");
 const { validationResult } = require("express-validator");
-const Card = require("../models/card");
+const { Card, getLastCardPosition } = require("../models/card");
 
 const createCard = async (req, res, next) => {
   // TODO: Add validation and error checking  
+  const lastCardPosition = await getLastCardPosition(req.body.listId);
+
   const docList = await List.findById(req.body.listId);
 
   const docCard = await Card.create({
     title: req.body.card.title,
     listId: req.body.listId,
     boardId: docList.boardId,
+    position: lastCardPosition + 65536
   })
   await List.findByIdAndUpdate(
     req.body.listId,

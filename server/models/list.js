@@ -27,11 +27,10 @@ const ListSchema = new Schema(
 );
 
 const getLists = async (boardId) => {
-  // TODO: add validation and error checking
   const docLists = await List
     .find({ boardId: boardId })
   
-  return docLists
+  return docLists;
 }
 
 const getLastListPosition = async (boardId) => {
