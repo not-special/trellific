@@ -1,0 +1,43 @@
+{
+	"info": {
+		"_postman_id": "f9e81672-ad2b-4cd5-90e0-79d7d85112e7",
+		"name": "Trello clone production",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18144888"
+	},
+	"item": [
+		{
+			"name": "https://trellific.corkboard.dev/api/boards",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://trellific.corkboard.dev/api/boards",
+					"protocol": "https",
+					"host": [
+						"trellific",
+						"corkboard",
+						"dev"
+					],
+					"path": [
+						"api",
+						"boards"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,4 +1,4 @@
-const List = require("../models/list");
+const { List } = require("../models/list");
 const HttpError = require("../models/httpError");
 const { validationResult } = require("express-validator");
 const Card = require("../models/card");
