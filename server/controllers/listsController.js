@@ -1,13 +1,17 @@
-const List = require("../models/list");
+const { List, getLastListPosition } = require("../models/list");
 const HttpError = require("../models/httpError");
 const { validationResult } = require("express-validator");
 const Board = require("../models/board");
 
+
 const createList = async (req, res, next) => {
+  const lastListPosition = await getLastListPosition(req.body.boardId);
+
   // TODO: Add validation and error checking
   const docList = await List.create({
     title: req.body.list.title,
-    boardId: req.body.boardId
+    boardId: req.body.boardId,
+    position: lastListPosition + 65536
   })
   await Board.findByIdAndUpdate(
     req.body.boardId,

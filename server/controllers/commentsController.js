@@ -1,4 +1,4 @@
-const Card = require("../models/card");
+const { Card } = require("../models/card");
 const Comment = require("../models/comment");
 
 const createComment = async (req, res, next) => {

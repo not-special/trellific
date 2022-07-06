@@ -26,5 +26,25 @@ const ListSchema = new Schema(
   , { timestamps: true }
 );
 
+const getLists = async (boardId) => {
+  const docLists = await List
+    .find({ boardId: boardId })
+  
+  return docLists;
+}
+
+const getLastListPosition = async (boardId) => {
+  const lists = await getLists(boardId);
+  if (lists.length > 0) {
+    // sort in descending order by position
+    lists.sort((a, b) => b.position - a.position);
+    return lists[0].position;
+  }
+  return 0;
+}
+
 const List = mongoose.model('List', ListSchema);
-module.exports = List;
+module.exports = { 
+  List,
+  getLastListPosition
+}
